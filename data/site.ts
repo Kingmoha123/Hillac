@@ -88,34 +88,200 @@ export const whyChooseUs = [
   { title: "Professional Team", text: "Designers, developers, and consultants focused on business outcomes." }
 ];
 
-export const projects = [
+export type PortfolioCategory = "Websites" | "Mobile Apps" | "Business Systems" | "Branding" | "UI/UX";
+
+export type ProjectImage = {
+  src: string | null;
+  alt: string;
+  label: string;
+};
+
+export type Project = {
+  title: string;
+  slug: string;
+  category: PortfolioCategory;
+  shortDescription: string;
+  overview: string;
+  client: string;
+  services: string[];
+  technologies: string[];
+  challenges: string[];
+  solution: string;
+  keyFeatures: string[];
+  results: string[];
+  coverImage: ProjectImage;
+  galleryImages: ProjectImage[];
+  liveProjectUrl: string | null;
+  githubUrl: string | null;
+  status: string;
+  completionYear: string;
+  featured: boolean;
+};
+
+export const portfolioCategories = [
+  "All",
+  "Websites",
+  "Mobile Apps",
+  "Business Systems",
+  "Branding",
+  "UI/UX"
+] as const;
+
+export const projects: Project[] = [
   {
-    title: "Kobciye Pay Wallet",
-    category: "Mobile App",
-    description: "A secure wallet concept for instant merchant payments, reporting, and customer activity.",
-    outcome: "Designed for fast checkout, clean transaction history, and scalable fintech integrations.",
-    tags: ["Flutter", "Node.js", "PostgreSQL"]
+    title: "DeynRaac Business Management",
+    slug: "deynraac-business-management",
+    category: "Business Systems",
+    shortDescription: "Placeholder case study for a business management system. Verified scope and screenshots are pending.",
+    overview: "DeynRaac is included as a structured portfolio entry so Hillaac can document verified business goals, workflow details, screens, and launch outcomes when available.",
+    client: "Internal Project",
+    services: ["Business system planning", "Dashboard UX", "Workflow design"],
+    technologies: ["Technology stack pending confirmation"],
+    challenges: [
+      "Project requirements and production scope still need confirmation.",
+      "Real screenshots and measurable results have not been added yet."
+    ],
+    solution: "The case study is prepared with sections for workflow design, role-based dashboards, reporting, and future implementation notes once verified project details are available.",
+    keyFeatures: ["Business workflow structure", "Management dashboard placeholder", "Reporting area placeholder"],
+    results: ["Case study ready for verified project details and assets."],
+    coverImage: {
+      src: null,
+      alt: "Placeholder visual for DeynRaac business management case study",
+      label: "Business Management"
+    },
+    galleryImages: [
+      { src: null, alt: "DeynRaac dashboard screenshot placeholder", label: "Dashboard" },
+      { src: null, alt: "DeynRaac workflow screenshot placeholder", label: "Workflow" }
+    ],
+    liveProjectUrl: null,
+    githubUrl: null,
+    status: "Information Needed",
+    completionYear: "Pending",
+    featured: true
   },
   {
-    title: "Mogadishu Care ERP",
-    category: "Healthcare",
-    description: "Hospital operations system covering appointments, billing, pharmacy, and department dashboards.",
-    outcome: "Reduced manual coordination and gave management live operational visibility.",
-    tags: ["Next.js", "Laravel", "MySQL"]
+    title: "Cooperative Investment Platform",
+    slug: "cooperative-investment-platform",
+    category: "Business Systems",
+    shortDescription: "Placeholder case study for a cooperative investment platform. Verified product details are pending.",
+    overview: "This entry gives Hillaac a professional case study structure for documenting investment workflows, member journeys, approvals, and reporting once the information is verified.",
+    client: "Internal Project",
+    services: ["Product planning", "Business systems design", "UI/UX structure"],
+    technologies: ["Technology stack pending confirmation"],
+    challenges: [
+      "Member, contribution, approval, and reporting requirements still need verification.",
+      "No public launch link or screenshots are currently available in the repository."
+    ],
+    solution: "The case study framework is ready to capture platform modules, service scope, technology decisions, and delivery outcomes without publishing unverified claims.",
+    keyFeatures: ["Member journey placeholder", "Investment workflow placeholder", "Admin reporting placeholder"],
+    results: ["Prepared for verified screenshots, links, and implementation details."],
+    coverImage: {
+      src: null,
+      alt: "Placeholder visual for cooperative investment platform case study",
+      label: "Investment Platform"
+    },
+    galleryImages: [
+      { src: null, alt: "Cooperative platform member portal screenshot placeholder", label: "Member Portal" },
+      { src: null, alt: "Cooperative platform reporting screenshot placeholder", label: "Reports" }
+    ],
+    liveProjectUrl: null,
+    githubUrl: null,
+    status: "Information Needed",
+    completionYear: "Pending",
+    featured: false
   },
   {
-    title: "Somali Academy Portal",
-    category: "Education",
-    description: "School management portal for admissions, classes, payments, attendance, and parent communication.",
-    outcome: "Unified academic workflows in one responsive platform.",
-    tags: ["React", "Firebase", "Figma"]
+    title: "School Management System",
+    slug: "school-management-system",
+    category: "Business Systems",
+    shortDescription: "Placeholder case study for a school operations platform. Verified school and feature details are pending.",
+    overview: "This portfolio entry is structured to document admissions, classes, payments, attendance, communication, and reporting after verified project information is available.",
+    client: "Internal Project",
+    services: ["System architecture", "Admin dashboard design", "Education workflow planning"],
+    technologies: ["Technology stack pending confirmation"],
+    challenges: [
+      "The exact school workflow, user roles, and launch status need confirmation.",
+      "Repository content does not include real screenshots or client-approved outcomes."
+    ],
+    solution: "The case study template supports a full education platform narrative while keeping current claims limited to confirmed placeholder information.",
+    keyFeatures: ["Student records placeholder", "Attendance workflow placeholder", "Payments module placeholder"],
+    results: ["Ready for verified launch information and education-sector screenshots."],
+    coverImage: {
+      src: null,
+      alt: "Placeholder visual for school management system case study",
+      label: "School System"
+    },
+    galleryImages: [
+      { src: null, alt: "School management student records screenshot placeholder", label: "Student Records" },
+      { src: null, alt: "School management reporting screenshot placeholder", label: "Reports" }
+    ],
+    liveProjectUrl: null,
+    githubUrl: null,
+    status: "Information Needed",
+    completionYear: "Pending",
+    featured: true
   },
   {
-    title: "Ganacsi POS Cloud",
-    category: "Retail",
-    description: "Retail POS and inventory system for branches, stock movement, purchasing, and finance summaries.",
-    outcome: "Improved stock accuracy and branch-level reporting.",
-    tags: ["Python", "Docker", "AWS"]
+    title: "Quran Connect",
+    slug: "quran-connect",
+    category: "Mobile Apps",
+    shortDescription: "Placeholder case study for Quran Connect. Verified platform, features, and assets are pending.",
+    overview: "Quran Connect is included as a placeholder portfolio entry so Hillaac can later document the approved product scope, app screens, user flows, and outcomes.",
+    client: "Internal Project",
+    services: ["Mobile experience planning", "UI/UX structure", "Product documentation"],
+    technologies: ["Technology stack pending confirmation"],
+    challenges: [
+      "The repository does not contain verified app requirements or screenshots.",
+      "Public app store links and launch status still need confirmation."
+    ],
+    solution: "The case study is ready to present mobile screens, feature modules, and product decisions once verified information is provided.",
+    keyFeatures: ["Mobile app structure placeholder", "Learning flow placeholder", "Content experience placeholder"],
+    results: ["Awaiting verified app assets, links, and delivery details."],
+    coverImage: {
+      src: null,
+      alt: "Placeholder visual for Quran Connect case study",
+      label: "Mobile Experience"
+    },
+    galleryImages: [
+      { src: null, alt: "Quran Connect home screen screenshot placeholder", label: "Home Screen" },
+      { src: null, alt: "Quran Connect learning flow screenshot placeholder", label: "Learning Flow" }
+    ],
+    liveProjectUrl: null,
+    githubUrl: null,
+    status: "Information Needed",
+    completionYear: "Pending",
+    featured: true
+  },
+  {
+    title: "Notary Agreement System",
+    slug: "notary-agreement-system",
+    category: "Business Systems",
+    shortDescription: "Placeholder case study for a notary agreement workflow system. Verified legal workflow details are pending.",
+    overview: "This entry provides a professional structure for documenting agreement preparation, approval flows, secure records, and operational outcomes after details are verified.",
+    client: "Internal Project",
+    services: ["Workflow mapping", "Business system UX", "Secure process planning"],
+    technologies: ["Technology stack pending confirmation"],
+    challenges: [
+      "Legal workflow requirements and public project status require confirmation.",
+      "No client-approved assets or links are currently available in the repository."
+    ],
+    solution: "The case study keeps sensitive details out while preparing sections for verified workflows, features, technology, and delivery notes.",
+    keyFeatures: ["Agreement workflow placeholder", "Document record placeholder", "Approval process placeholder"],
+    results: ["Prepared for verified information, screenshots, and approved public details."],
+    coverImage: {
+      src: null,
+      alt: "Placeholder visual for notary agreement system case study",
+      label: "Agreement System"
+    },
+    galleryImages: [
+      { src: null, alt: "Notary agreement workflow screenshot placeholder", label: "Workflow" },
+      { src: null, alt: "Notary agreement records screenshot placeholder", label: "Records" }
+    ],
+    liveProjectUrl: null,
+    githubUrl: null,
+    status: "Information Needed",
+    completionYear: "Pending",
+    featured: false
   }
 ];
 

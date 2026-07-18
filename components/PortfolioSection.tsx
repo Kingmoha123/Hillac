@@ -1,34 +1,26 @@
 import { projects } from "@/data/site";
+import { ButtonLink } from "./ButtonLink";
+import { ProjectCard } from "./ProjectCard";
 import { SectionHeader } from "./SectionHeader";
 
 export function PortfolioSection() {
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
+
   return (
     <section className="section">
       <div className="container">
         <SectionHeader
           eyebrow="Featured Projects"
-          title="Case studies shaped for high-trust organizations"
-          text="A sample of the kind of polished systems, portals, and apps Hillaac builds for modern teams."
+          title="Structured case studies for real business needs"
+          text="Explore selected portfolio entries prepared to show Hillaac's approach, services, technology choices, and verified outcomes as project details become available."
         />
         <div className="portfolio-grid">
-          {projects.map((project, index) => (
-            <article className="project-card" key={project.title}>
-              <div className="project-preview">
-                <span>0{index + 1}</span>
-                <strong>{project.category}</strong>
-              </div>
-              <div className="project-content">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <strong>{project.outcome}</strong>
-                <div className="tag-row">
-                  {project.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </article>
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.slug} project={project} priority={index === 0} />
           ))}
+        </div>
+        <div className="portfolio-actions">
+          <ButtonLink href="/portfolio" variant="secondary">View All Projects</ButtonLink>
         </div>
       </div>
     </section>
