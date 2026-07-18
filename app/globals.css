@@ -406,7 +406,8 @@ textarea {
 
 .metric-card strong {
   font-family: Poppins, sans-serif;
-  font-size: 2.2rem;
+  font-size: clamp(1.45rem, 2.8vw, 2.2rem);
+  line-height: 1.08;
 }
 
 .chart-card {
@@ -1104,6 +1105,14 @@ textarea {
 
   .hero-grid {
     gap: 34px;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+  .trust-strip strong {
+    max-width: 100%;
   }
 
   .mockup-body {
