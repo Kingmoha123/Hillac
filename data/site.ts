@@ -342,24 +342,6 @@ export const testimonials = [
   }
 ];
 
-export const blogPosts = [
-  {
-    title: "Why Somali Businesses Need Premium Digital Systems",
-    date: "July 2026",
-    excerpt: "A practical look at how modern software improves trust, reporting, and customer experience."
-  },
-  {
-    title: "From Manual Workflows to Cloud Dashboards",
-    date: "July 2026",
-    excerpt: "How ERP and POS systems help growing organizations make faster decisions."
-  },
-  {
-    title: "Building Brands That Feel Global and Local",
-    date: "June 2026",
-    excerpt: "The role of typography, color, motion, and consistency in premium Somali brands."
-  }
-];
-
 export const jobs = [
   {
     title: "Frontend Developer",

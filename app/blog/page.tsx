@@ -1,6 +1,7 @@
 import { createPageMetadata } from "@/lib/seo";
+import { BlogCard } from "@/components/BlogCard";
 import { PageHero } from "@/components/PageHero";
-import { blogPosts } from "@/data/site";
+import { publishedBlogPosts } from "@/data/blog";
 
 export const metadata = createPageMetadata({
   title: "Insights",
@@ -9,6 +10,9 @@ export const metadata = createPageMetadata({
 });
 
 export default function BlogPage() {
+  const featuredPost = publishedBlogPosts.find((post) => post.featured) || publishedBlogPosts[0];
+  const remainingPosts = publishedBlogPosts.filter((post) => post.slug !== featuredPost.slug);
+
   return (
     <>
       <PageHero
@@ -16,16 +20,16 @@ export default function BlogPage() {
         title="Ideas on digital growth, design, software, and Somali enterprise"
         text="Practical thinking for founders, managers, institutions, and teams preparing for stronger digital operations."
       />
-      <section className="section">
-        <div className="container blog-grid">
-          {blogPosts.map((post) => (
-            <article className="blog-card" key={post.title}>
-              <span>{post.date}</span>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt}</p>
-              <a href="/contact">Discuss this topic</a>
-            </article>
-          ))}
+      <section className="section blog-listing">
+        <div className="container">
+          <div className="featured-blog">
+            <BlogCard post={featuredPost} featured priority />
+          </div>
+          <div className="blog-grid">
+            {remainingPosts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
         </div>
       </section>
     </>
