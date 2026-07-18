@@ -220,7 +220,10 @@ Basic steps:
 2. Open Vercel.
 3. Import the GitHub repository.
 4. Use the default Next.js settings.
-5. Deploy.
+5. Add `NEXT_PUBLIC_SITE_URL` with the production URL for canonical links, sitemap, robots, and social sharing.
+6. Deploy.
+
+Use the deployed Vercel URL until a custom domain is verified. Replace `NEXT_PUBLIC_SITE_URL` after connecting the final domain.
 
 ## Company
 

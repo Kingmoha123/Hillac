@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaSection } from "@/components/CtaSection";
+import { JsonLd } from "@/components/JsonLd";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { projects } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
+import { createBreadcrumbJsonLd } from "@/lib/structured-data";
 
 type CaseStudyPageProps = {
   params: {
@@ -28,20 +31,13 @@ export function generateMetadata({ params }: CaseStudyPageProps): Metadata {
     };
   }
 
-  const images = project.coverImage.src
-    ? [{ url: project.coverImage.src, alt: project.coverImage.alt }]
-    : undefined;
-
-  return {
-    title: `${project.title} Case Study | Hillaac ICT Solutions`,
+  return createPageMetadata({
+    title: `${project.title} Case Study`,
     description: project.shortDescription,
-    openGraph: {
-      title: `${project.title} Case Study | Hillaac ICT Solutions`,
-      description: project.shortDescription,
-      type: "article",
-      images
-    }
-  };
+    path: `/portfolio/${project.slug}`,
+    keywords: [project.title, project.category, ...project.services],
+    type: "article"
+  });
 }
 
 export default function CaseStudyPage({ params }: CaseStudyPageProps) {
@@ -51,8 +47,15 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
     notFound();
   }
 
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Portfolio", path: "/portfolio" },
+    { name: project.title, path: `/portfolio/${project.slug}` }
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="case-hero">
         <div className="container case-hero-grid">
           <div>

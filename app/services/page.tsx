@@ -1,7 +1,14 @@
+import { createPageMetadata } from "@/lib/seo";
 import { ContactSection } from "@/components/ContactSection";
 import { Icon } from "@/components/Icon";
 import { PageHero } from "@/components/PageHero";
 import { services } from "@/data/site";
+
+export const metadata = createPageMetadata({
+  title: "Services",
+  description: "Explore Hillaac ICT Solutions services for websites, mobile apps, custom software, branding, cloud solutions, UI/UX, marketing, and video.",
+  path: "/services"
+});
 
 export default function ServicesPage() {
   return (

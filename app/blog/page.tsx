@@ -1,5 +1,12 @@
+import { createPageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { blogPosts } from "@/data/site";
+
+export const metadata = createPageMetadata({
+  title: "Insights",
+  description: "Read practical ideas from Hillaac ICT Solutions on digital growth, design, software, and stronger business operations in Somalia.",
+  path: "/blog"
+});
 
 export default function BlogPage() {
   return (

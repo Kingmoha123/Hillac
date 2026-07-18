@@ -1,18 +1,14 @@
-import type { Metadata } from "next";
 import { CtaSection } from "@/components/CtaSection";
 import { PageHero } from "@/components/PageHero";
 import { PortfolioFilter } from "@/components/PortfolioFilter";
 import { projects } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Portfolio | Hillaac ICT Solutions",
+export const metadata = createPageMetadata({
+  title: "Portfolio",
   description: "Explore Hillaac ICT Solutions portfolio entries and case studies for websites, mobile apps, business systems, branding, and UI/UX work.",
-  openGraph: {
-    title: "Portfolio | Hillaac ICT Solutions",
-    description: "Professional portfolio and case studies from Hillaac ICT Solutions.",
-    type: "website"
-  }
-};
+  path: "/portfolio"
+});
 
 export default function PortfolioPage() {
   return (
