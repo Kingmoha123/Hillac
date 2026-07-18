@@ -9,23 +9,24 @@ export function Hero() {
       <div className="hero-bg" />
       <div className="container hero-grid">
         <div className="hero-copy reveal">
-          <span className="eyebrow">Premium Somali technology company</span>
-          <h1>Transforming Ideas Into Powerful Digital Solutions</h1>
+          <span className="eyebrow">Somalia&apos;s Digital Solutions Partner</span>
+          <h1>We Build Digital Solutions That Help Businesses Grow</h1>
           <p>
-            {company.name} builds elegant brands, high-performance websites,
-            mobile apps, cloud platforms, and custom business systems for the
-            next generation of Somali enterprise.
+            {company.name} designs and develops professional websites, mobile
+            apps, business systems, branding, and cloud solutions for companies
+            and institutions in Somalia.
           </p>
           <div className="hero-actions">
-            <ButtonLink href="/contact">Get Started</ButtonLink>
-            <ButtonLink href="/portfolio" variant="secondary">View Portfolio</ButtonLink>
+            <ButtonLink href="/contact">Request a Free Consultation</ButtonLink>
+            <ButtonLink href="/portfolio" variant="secondary">View Our Work</ButtonLink>
           </div>
           <div className="trust-strip">
-            <span>Trusted for</span>
+            <span>Services for</span>
+            <strong>Websites</strong>
+            <strong>Mobile Apps</strong>
+            <strong>Business Systems</strong>
             <strong>Branding</strong>
-            <strong>Web</strong>
-            <strong>Apps</strong>
-            <strong>Systems</strong>
+            <strong>Cloud Solutions</strong>
           </div>
         </div>
         <div className="hero-visual reveal">
@@ -39,13 +40,13 @@ export function Hero() {
             <div className="mockup-body">
               <div className="metric-card dark-card">
                 <Logo compact />
-                <span>System Health</span>
-                <strong>99.98%</strong>
+                <span>Delivery Approach</span>
+                <strong>Client-Focused</strong>
               </div>
               <div className="metric-card">
                 <Icon name="trend" className="icon-medium" />
-                <span>Growth Pipeline</span>
-                <strong>+148%</strong>
+                <span>Solution Model</span>
+                <strong>Secure &amp; Scalable</strong>
               </div>
               <div className="chart-card">
                 {[44, 70, 58, 84, 52, 96, 76, 118, 88, 132].map((height, index) => (
@@ -60,8 +61,8 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div className="floating-note note-one">Launch-ready platforms</div>
-          <div className="floating-note note-two">Secure cloud systems</div>
+          <div className="floating-note note-one">Custom digital solutions</div>
+          <div className="floating-note note-two">Built for growth</div>
         </div>
       </div>
       <div className="container stats-row">

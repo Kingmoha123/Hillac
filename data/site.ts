@@ -73,10 +73,10 @@ export const services = [
 ];
 
 export const stats = [
-  { value: "40+", label: "Digital products delivered" },
-  { value: "12+", label: "Industries supported" },
-  { value: "99%", label: "Client-focused delivery" },
-  { value: "24/7", label: "Support mindset" }
+  { value: "Custom-Built", label: "Solutions" },
+  { value: "Responsive", label: "Support" },
+  { value: "Secure", label: "Development" },
+  { value: "End-to-End", label: "Delivery" }
 ];
 
 export const whyChooseUs = [
