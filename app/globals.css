@@ -839,6 +839,39 @@ textarea {
   box-shadow: 0 0 0 4px rgba(0, 87, 217, 0.12);
 }
 
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
+  border-color: #d92d20;
+}
+
+.contact-field-error,
+.contact-form-status {
+  color: #d92d20;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.contact-form-status {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.contact-form-status.is-success {
+  color: #067647;
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact-form button,
 .newsletter button {
   border: 0;
@@ -848,6 +881,11 @@ textarea {
   padding: 16px 18px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .mission-card {
