@@ -113,24 +113,33 @@ npm run lint
 
 ## Contact Form Email
 
-The contact form posts to `/api/contact` and sends an email notification from the server.
-Create `.env.local` for local testing and add matching variables in production:
+The contact form posts to `/api/contact` and sends an email notification through Gmail SMTP from the server.
+Secrets must stay in environment variables. Do not commit `.env.local`, and do not use the normal Gmail account password.
+
+Create `.env.local` for local testing:
 
 ```text
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=your-smtp-user
-SMTP_PASS=your-smtp-password
-SMTP_FROM="Hillaac Website <no-reply@hillaac.com>"
-CONTACT_TO_EMAIL=info@hillaac.com
-```
-
-Optional:
-
-```text
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_STARTTLS=false
+SMTP_USER=hillacict@gmail.com
+SMTP_PASS=your-gmail-app-password
+SMTP_FROM="Hillaac ICT Solutions <hillacict@gmail.com>"
+CONTACT_TO_EMAIL=hillacict@gmail.com
 ```
+
+To create the Gmail App Password:
+
+1. Sign in to the `hillacict@gmail.com` Google Account.
+2. Enable 2-Step Verification.
+3. Open Google Account security settings and create an App Password for mail.
+4. Put that app password in `SMTP_PASS` inside `.env.local`.
+5. Restart the local Next.js server after changing environment variables.
+
+Gmail may display the app password with spaces. The contact API removes spaces for Gmail SMTP, but keeping the value without spaces in `.env.local` is recommended.
+
+For Vercel, add the same variables in Project Settings, Environment Variables.
+Apply them to the production environment, then redeploy the site so the API route can read the new values.
 
 ## WhatsApp Contact
 
