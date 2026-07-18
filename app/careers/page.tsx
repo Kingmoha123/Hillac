@@ -1,5 +1,12 @@
+import { createPageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/PageHero";
 import { jobs } from "@/data/site";
+
+export const metadata = createPageMetadata({
+  title: "Careers",
+  description: "Explore career opportunities with Hillaac ICT Solutions for people who want to build premium digital brands and systems in Somalia.",
+  path: "/careers"
+});
 
 export default function CareersPage() {
   return (

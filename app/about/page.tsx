@@ -1,8 +1,15 @@
+import { createPageMetadata } from "@/lib/seo";
 import { CtaSection } from "@/components/CtaSection";
 import { PageHero } from "@/components/PageHero";
 import { ProcessSection } from "@/components/ProcessSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { company, whyChooseUs } from "@/data/site";
+
+export const metadata = createPageMetadata({
+  title: "About Hillaac ICT Solutions",
+  description: "Learn about Hillaac ICT Solutions, a Mogadishu technology company helping Somali organizations build stronger digital brands, products, and systems.",
+  path: "/about"
+});
 
 export default function AboutPage() {
   return (

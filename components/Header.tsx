@@ -38,14 +38,14 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <button className="icon-button" onClick={toggleTheme} aria-label="Toggle dark mode">
+          <button type="button" className="icon-button" onClick={toggleTheme} aria-label="Toggle dark mode">
             {dark ? "☀" : "◐"}
           </button>
           <ButtonLink href="/contact" variant="secondary">Start Project</ButtonLink>
           <a className="whatsapp-link desktop-only" href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noreferrer">
             WhatsApp
           </a>
-          <button className="icon-button mobile-menu-button" onClick={() => setOpen((value) => !value)} aria-label="Open menu">
+          <button type="button" className="icon-button mobile-menu-button" onClick={() => setOpen((value) => !value)} aria-label="Open menu">
             <Icon name={open ? "close" : "menu"} className="icon-small" />
           </button>
         </div>

@@ -1,5 +1,12 @@
+import { createPageMetadata } from "@/lib/seo";
 import { ContactSection } from "@/components/ContactSection";
 import { PageHero } from "@/components/PageHero";
+
+export const metadata = createPageMetadata({
+  title: "Contact",
+  description: "Contact Hillaac ICT Solutions to discuss a website, mobile app, business system, brand, cloud project, or digital product.",
+  path: "/contact"
+});
 
 export default function ContactPage() {
   return (
