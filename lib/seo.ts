@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { publishedBlogPosts } from "@/data/blog";
 import { company, projects } from "@/data/site";
 
 const fallbackSiteUrl = "https://hillac-ict-solutions.vercel.app";
@@ -132,6 +133,12 @@ export function createPageMetadata({
 
 export const sitemapEntries = [
   ...sitePages,
+  ...publishedBlogPosts.map((post) => ({
+    path: `/blog/${post.slug}`,
+    title: post.title,
+    description: post.excerpt,
+    priority: post.featured ? 0.8 : 0.7
+  })),
   ...projects.map((project) => ({
     path: `/portfolio/${project.slug}`,
     title: `${project.title} Case Study`,

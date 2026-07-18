@@ -67,3 +67,47 @@ export function createBreadcrumbJsonLd(items: Array<{ name: string; path: string
     }))
   };
 }
+
+export function createArticleJsonLd({
+  title,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  authorName,
+  publisherName
+}: {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+  authorName: string;
+  publisherName: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    url,
+    image,
+    datePublished,
+    dateModified,
+    author: {
+      "@type": "Organization",
+      name: authorName
+    },
+    publisher: {
+      "@type": "Organization",
+      name: publisherName,
+      url: siteUrl
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url
+    }
+  };
+}
