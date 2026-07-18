@@ -111,6 +111,27 @@ npm run start
 npm run lint
 ```
 
+## Contact Form Email
+
+The contact form posts to `/api/contact` and sends an email notification from the server.
+Create `.env.local` for local testing and add matching variables in production:
+
+```text
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-smtp-user
+SMTP_PASS=your-smtp-password
+SMTP_FROM="Hillaac Website <no-reply@hillaac.com>"
+CONTACT_TO_EMAIL=info@hillaac.com
+```
+
+Optional:
+
+```text
+SMTP_SECURE=true
+SMTP_STARTTLS=false
+```
+
 ## WhatsApp Contact
 
 The floating WhatsApp button uses this number:
