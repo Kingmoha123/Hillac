@@ -8,8 +8,7 @@ import { TrackPageEvent } from "@/components/TrackPageEvent";
 import { absoluteUrl, createPageMetadata, defaultOgImage } from "@/lib/seo";
 import {
   getPublishedPortfolioProjectBySlug,
-  getPublishedPortfolioProjectMetadata,
-  getPublishedPortfolioProjects
+  getPublishedPortfolioProjectMetadata
 } from "@/lib/portfolio/repository";
 import { createBreadcrumbJsonLd } from "@/lib/structured-data";
 
@@ -19,17 +18,11 @@ type CaseStudyPageProps = {
   };
 };
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  try {
-    const projects = await getPublishedPortfolioProjects();
-    return projects.map((project) => ({ slug: project.slug }));
-  } catch (error) {
-    console.warn("Skipping portfolio static params during build:", error instanceof Error ? error.message : "Unknown error");
-    return [];
-  }
+  return [];
 }
 
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {

@@ -11,7 +11,10 @@ const legalPaths = new Set([
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const portfolioEntries = await getPublishedPortfolioSitemapEntries();
+  const portfolioEntries = await getPublishedPortfolioSitemapEntries().catch((error) => {
+    console.warn("Skipping portfolio sitemap entries:", error instanceof Error ? error.message : "Unknown error");
+    return [];
+  });
   const paths = new Set<string>();
 
   return [...sitemapEntries.filter((entry) => !entry.path.startsWith("/portfolio/")), ...portfolioEntries]
