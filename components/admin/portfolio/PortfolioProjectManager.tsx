@@ -27,6 +27,8 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [projectPendingDelete, setProjectPendingDelete] = useState<SerializedPortfolioProject | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -68,18 +70,26 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
     setProjects((current) => current.map((item) => (item.id === project.id ? updatedProject : item)));
   };
 
-  const archiveProject = async (project: SerializedPortfolioProject) => {
-    if (!window.confirm(`Archive "${project.title}"? This will remove it from public listings.`)) {
+  const deleteProject = async () => {
+    if (!projectPendingDelete) {
       return;
     }
 
-    const response = await fetch(`/api/admin/portfolio/${project.id}`, { method: "DELETE" });
-    if (!response.ok) {
-      setError("Unable to archive project.");
-      return;
-    }
+    setIsDeleting(true);
+    setError(null);
 
-    setProjects((current) => current.filter((item) => item.id !== project.id));
+    try {
+      const response = await fetch(`/api/admin/portfolio/${projectPendingDelete.id}`, { method: "DELETE" });
+      if (!response.ok) {
+        setError("Unable to delete project.");
+        return;
+      }
+
+      setProjects((current) => current.filter((item) => item.id !== projectPendingDelete.id));
+      setProjectPendingDelete(null);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -125,7 +135,7 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
                       <Link href={`/admin/portfolio/${project.id}/preview`}>Preview</Link>
                       {project.published ? <Link href={`/portfolio/${project.slug}`}>Public</Link> : null}
                       {canPublish ? <button type="button" onClick={() => togglePublished(project)}>{project.published ? "Unpublish" : "Publish"}</button> : null}
-                      {canDelete ? <button type="button" onClick={() => archiveProject(project)}>Archive</button> : null}
+                      {canDelete ? <button type="button" onClick={() => setProjectPendingDelete(project)}>Delete</button> : null}
                     </div>
                   </td>
                 </tr>
@@ -140,6 +150,33 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
         <span>Page {page} of {totalPages}</span>
         <button type="button" disabled={page >= totalPages} onClick={() => setPage((value) => value + 1)}>Next</button>
       </div>
+
+      {projectPendingDelete ? (
+        <div className="admin-modal-backdrop" role="presentation">
+          <div
+            className="admin-confirm-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="delete-project-title"
+            aria-describedby="delete-project-description"
+          >
+            <span className="admin-dialog-eyebrow">Confirm Delete</span>
+            <h2 id="delete-project-title">Delete this project?</h2>
+            <p id="delete-project-description">
+              You are about to remove <strong>{projectPendingDelete.title}</strong> from the admin list and public portfolio.
+              This action cannot be undone from this screen.
+            </p>
+            <div className="admin-dialog-actions">
+              <button type="button" className="admin-secondary-action" onClick={() => setProjectPendingDelete(null)} disabled={isDeleting}>
+                Cancel
+              </button>
+              <button type="button" className="admin-danger-action" onClick={deleteProject} disabled={isDeleting}>
+                {isDeleting ? "Deleting..." : "Delete Project"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
