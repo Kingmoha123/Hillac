@@ -1999,6 +1999,85 @@ textarea {
   font-weight: 800;
 }
 
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(3, 7, 18, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+.admin-confirm-dialog {
+  width: min(100%, 460px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 16% 0%, color-mix(in srgb, #d92d20 13%, transparent), transparent 34%),
+    var(--white);
+  padding: 26px;
+  box-shadow: 0 26px 80px rgba(3, 7, 18, 0.35);
+}
+
+.admin-confirm-dialog h2 {
+  margin: 8px 0 12px;
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  letter-spacing: 0;
+}
+
+.admin-confirm-dialog p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.admin-confirm-dialog strong {
+  color: var(--ink);
+}
+
+.admin-dialog-eyebrow {
+  color: #d92d20;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.admin-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.admin-dialog-actions button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 11px 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.admin-dialog-actions button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.admin-secondary-action {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.admin-danger-action {
+  border-color: color-mix(in srgb, #d92d20 34%, var(--line)) !important;
+  background: #d92d20;
+  color: white;
+}
+
 .admin-project-form {
   display: grid;
   gap: 18px;
