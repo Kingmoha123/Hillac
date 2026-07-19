@@ -208,6 +208,56 @@ Troubleshooting analytics:
 - If events do not show, accept analytics first and confirm the site was redeployed after adding Vercel environment variables.
 - If testing locally, restart the dev server after editing `.env.local`.
 
+## Admin Foundation
+
+The admin foundation lives under `/admin` and is isolated from the public website chrome. It uses MongoDB with Mongoose, bcrypt password hashing, and a signed HTTP-only admin session cookie. Do not store admin tokens in localStorage and do not create public registration routes.
+
+Required admin environment variables:
+
+```text
+MONGODB_URI=
+AUTH_SECRET=
+ADMIN_SEED_NAME=
+ADMIN_SEED_EMAIL=
+ADMIN_SEED_PASSWORD=
+```
+
+Generate `AUTH_SECRET` with a long random value, for example:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+```
+
+MongoDB setup:
+
+1. Create a MongoDB Atlas cluster or provide a secure MongoDB connection string.
+2. Add the connection string to `MONGODB_URI` in `.env.local`.
+3. Add the same variable in Vercel Project Settings, Environment Variables.
+4. Redeploy Vercel after changing environment variables.
+
+Create the first `SUPER_ADMIN` locally or in a secure one-time setup environment:
+
+```bash
+npm run seed:admin
+```
+
+The seed command reads `ADMIN_SEED_NAME`, `ADMIN_SEED_EMAIL`, `ADMIN_SEED_PASSWORD`, and `MONGODB_URI`. The password must be at least 12 characters and include uppercase, lowercase, and number characters. It hashes the password with bcrypt and avoids duplicate admin users by email.
+
+After the first admin is created:
+
+1. Remove `ADMIN_SEED_PASSWORD` from `.env.local`.
+2. Remove seed credentials from Vercel Environment Variables.
+3. Keep `MONGODB_URI` and `AUTH_SECRET` configured.
+4. Visit `/admin/login` to sign in.
+
+Admin security notes:
+
+- Inactive admin users cannot log in.
+- Login errors are generic and do not reveal whether an email exists.
+- Login attempts are rate-limited in memory.
+- Sessions use HTTP-only cookies with `sameSite=lax`; production cookies are marked secure.
+- Only Dashboard and Settings are functional in this foundation. Other modules are protected placeholders for future CMS work.
+
 ## WhatsApp Contact
 
 The floating WhatsApp button uses this number:

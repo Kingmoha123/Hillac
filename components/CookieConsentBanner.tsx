@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   AnalyticsConsent,
   getAnalyticsConsent,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/analytics";
 
 export function CookieConsentBanner() {
+  const pathname = usePathname();
   const [consent, setConsent] = useState<AnalyticsConsent | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
@@ -32,7 +34,7 @@ export function CookieConsentBanner() {
     };
   }, []);
 
-  if (!hydrated || !isAnalyticsConfigured() || (consent && !settingsOpen)) {
+  if (pathname.startsWith("/admin") || !hydrated || !isAnalyticsConfigured() || (consent && !settingsOpen)) {
     return null;
   }
 

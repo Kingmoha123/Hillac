@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { legalPages } from "@/data/legal";
 import { company, navigation, services } from "@/data/site";
 import { CookieSettingsButton } from "./CookieSettingsButton";
@@ -6,6 +9,12 @@ import { Logo } from "./Logo";
 import { TrackedLink } from "./TrackedLink";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="footer">
       <div className="container footer-grid">

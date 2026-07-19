@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { company, navigation } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
 import { ButtonLink } from "./ButtonLink";
@@ -9,8 +10,11 @@ import { Icon } from "./Icon";
 import { Logo } from "./Logo";
 
 export function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
+
+  const isAdminRoute = pathname.startsWith("/admin");
 
   useEffect(() => {
     const saved = window.localStorage.getItem("theme");
@@ -26,6 +30,10 @@ export function Header() {
     window.localStorage.setItem("theme", next ? "dark" : "light");
     document.documentElement.classList.toggle("dark", next);
   };
+
+  if (isAdminRoute) {
+    return null;
+  }
 
   return (
     <header className="site-header">
