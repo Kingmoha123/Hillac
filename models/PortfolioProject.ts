@@ -98,5 +98,5 @@ portfolioProjectSchema.index({ published: 1, featured: -1, sortOrder: 1, updated
 portfolioProjectSchema.index({ archivedAt: 1 });
 
 export const PortfolioProject =
-  (models.PortfolioProject as Model<PortfolioProjectDocument> | undefined) ||
+  (models?.PortfolioProject as Model<PortfolioProjectDocument> | undefined) ||
   model<PortfolioProjectDocument>("PortfolioProject", portfolioProjectSchema);

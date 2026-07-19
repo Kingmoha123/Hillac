@@ -72,5 +72,5 @@ const adminUserSchema = new Schema<AdminUserDocument>(
 );
 
 export const AdminUser =
-  (models.AdminUser as Model<AdminUserDocument> | undefined) ||
+  (models?.AdminUser as Model<AdminUserDocument> | undefined) ||
   model<AdminUserDocument>("AdminUser", adminUserSchema);
