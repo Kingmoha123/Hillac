@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { company, navigation } from "@/data/site";
+import { trackEvent } from "@/lib/analytics";
 import { ButtonLink } from "./ButtonLink";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
@@ -41,8 +42,21 @@ export function Header() {
           <button type="button" className="icon-button" onClick={toggleTheme} aria-label="Toggle dark mode">
             {dark ? "☀" : "◐"}
           </button>
-          <ButtonLink href="/contact" variant="secondary">Start Project</ButtonLink>
-          <a className="whatsapp-link desktop-only" href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noreferrer">
+          <ButtonLink
+            href="/contact"
+            variant="secondary"
+            analyticsEvent="header_start_project_click"
+            analyticsProperties={{ cta_location: "header" }}
+          >
+            Start Project
+          </ButtonLink>
+          <a
+            className="whatsapp-link desktop-only"
+            href={`https://wa.me/${company.whatsapp}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent("whatsapp_click", { cta_location: "header_desktop" })}
+          >
             WhatsApp
           </a>
           <button type="button" className="icon-button mobile-menu-button" onClick={() => setOpen((value) => !value)} aria-label="Open menu">
@@ -58,7 +72,12 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noreferrer">
+            <a
+              href={`https://wa.me/${company.whatsapp}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { cta_location: "header_mobile" })}
+            >
               WhatsApp: {company.phone}
             </a>
           </div>

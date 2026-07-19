@@ -1,4 +1,7 @@
+"use client";
+
 import { company } from "@/data/site";
+import { trackEvent } from "@/lib/analytics";
 import { Icon } from "./Icon";
 
 export function WhatsAppButton() {
@@ -11,6 +14,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat with Hillaac ICT Solutions on WhatsApp"
+      onClick={() => trackEvent("whatsapp_click", { cta_location: "floating_button" })}
     >
       <Icon name="whatsapp" className="icon-medium" />
       <span>WhatsApp</span>

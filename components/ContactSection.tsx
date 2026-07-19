@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { company } from "@/data/site";
+import { trackEvent } from "@/lib/analytics";
 import { ButtonLink } from "./ButtonLink";
 import { Icon } from "./Icon";
 import { SectionHeader } from "./SectionHeader";
@@ -59,8 +60,14 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [statusType, setStatusType] = useState<"success" | "error" | null>(null);
+  const hasTrackedStart = useRef(false);
 
   const updateField = (field: keyof ContactFormValues, value: string) => {
+    if (!hasTrackedStart.current && field !== "companyName") {
+      hasTrackedStart.current = true;
+      trackEvent("contact_form_start", { cta_location: "contact_form" });
+    }
+
     setValues((current) => ({ ...current, [field]: value }));
     setStatusMessage(null);
     setStatusType(null);
@@ -72,11 +79,13 @@ export function ContactSection() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    trackEvent("contact_form_submit", { cta_location: "contact_form" });
 
     const nextErrors = validateForm(values);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      trackEvent("contact_form_error", { cta_location: "contact_form", error_type: "validation" });
       setStatusType("error");
       setStatusMessage("Please fix the highlighted fields and try again.");
       return;
@@ -101,9 +110,12 @@ export function ContactSection() {
       setValues(initialValues());
       setStatusType("success");
       setStatusMessage(result.message || "Thank you. Your message has been sent.");
+      hasTrackedStart.current = false;
+      trackEvent("contact_form_success", { cta_location: "contact_form" });
     } catch (error) {
       setStatusType("error");
       setStatusMessage(error instanceof Error ? error.message : "Unable to send your message right now.");
+      trackEvent("contact_form_error", { cta_location: "contact_form", error_type: "server" });
     } finally {
       setIsSubmitting(false);
     }
@@ -123,7 +135,14 @@ export function ContactSection() {
             <p><Icon name="globe" className="icon-small" /> {company.location}</p>
             <p><Icon name="spark" className="icon-small" /> {company.slogan}</p>
           </div>
-          <ButtonLink href={`https://wa.me/${company.whatsapp}`} variant="primary">Chat on WhatsApp</ButtonLink>
+          <ButtonLink
+            href={`https://wa.me/${company.whatsapp}`}
+            variant="primary"
+            analyticsEvent="whatsapp_click"
+            analyticsProperties={{ cta_location: "contact_section" }}
+          >
+            Chat on WhatsApp
+          </ButtonLink>
         </div>
         <form className="contact-form" onSubmit={handleSubmit} noValidate>
           <label>

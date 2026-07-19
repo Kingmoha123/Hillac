@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { legalPages } from "@/data/legal";
 import { company, navigation, services } from "@/data/site";
+import { CookieSettingsButton } from "./CookieSettingsButton";
 import { Logo } from "./Logo";
+import { TrackedLink } from "./TrackedLink";
 
 export function Footer() {
   return (
@@ -39,8 +41,26 @@ export function Footer() {
           <h3>Contact</h3>
           <ul>
             <li>{company.location}</li>
-            <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
-            <li><a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noreferrer">{company.phone}</a></li>
+            <li>
+              <TrackedLink
+                href={`mailto:${company.email}`}
+                eventName="footer_contact_click"
+                eventProperties={{ cta_location: "footer_email", link_type: "email" }}
+              >
+                {company.email}
+              </TrackedLink>
+            </li>
+            <li>
+              <TrackedLink
+                href={`https://wa.me/${company.whatsapp}`}
+                target="_blank"
+                rel="noreferrer"
+                eventName="whatsapp_click"
+                eventProperties={{ cta_location: "footer", link_type: "whatsapp" }}
+              >
+                {company.phone}
+              </TrackedLink>
+            </li>
           </ul>
           <form className="newsletter">
             <input type="email" placeholder="Email address" aria-label="Email address" />
@@ -56,6 +76,7 @@ export function Footer() {
               {page.title}
             </Link>
           ))}
+          <CookieSettingsButton />
         </nav>
       </div>
     </footer>

@@ -1,7 +1,7 @@
-import Link from "next/link";
 import type { Project } from "@/data/site";
 import { ButtonLink } from "./ButtonLink";
 import { ProjectVisual } from "./ProjectVisual";
+import { TrackedLink } from "./TrackedLink";
 
 type ProjectCardProps = {
   project: Project;
@@ -11,14 +11,25 @@ type ProjectCardProps = {
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
     <article className="project-card">
-      <Link className="project-preview" href={`/portfolio/${project.slug}`} aria-label={`View case study for ${project.title}`}>
+      <TrackedLink
+        className="project-preview"
+        href={`/portfolio/${project.slug}`}
+        aria-label={`View case study for ${project.title}`}
+        eventName="portfolio_project_click"
+        eventProperties={{
+          cta_location: "project_card_visual",
+          link_type: "case_study",
+          project_slug: project.slug,
+          project_title: project.title
+        }}
+      >
         <ProjectVisual
           image={project.coverImage}
           title={project.title}
           category={project.category}
           priority={priority}
         />
-      </Link>
+      </TrackedLink>
       <div className="project-content">
         <span className="project-category">{project.category}</span>
         <h3>{project.title}</h3>
@@ -38,7 +49,19 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
             <span key={technology}>{technology}</span>
           ))}
         </div>
-        <ButtonLink href={`/portfolio/${project.slug}`} variant="secondary">View Case Study</ButtonLink>
+        <ButtonLink
+          href={`/portfolio/${project.slug}`}
+          variant="secondary"
+          analyticsEvent="portfolio_project_click"
+          analyticsProperties={{
+            cta_location: "project_card_button",
+            link_type: "case_study",
+            project_slug: project.slug,
+            project_title: project.title
+          }}
+        >
+          View Case Study
+        </ButtonLink>
       </div>
     </article>
   );

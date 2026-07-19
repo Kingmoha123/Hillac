@@ -7,6 +7,7 @@ import { BlogVisual } from "@/components/BlogVisual";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
+import { TrackPageEvent } from "@/components/TrackPageEvent";
 import { publishedBlogPosts } from "@/data/blog";
 import { company } from "@/data/site";
 import { absoluteUrl, createPageMetadata, defaultOgImage } from "@/lib/seo";
@@ -105,6 +106,13 @@ export default function BlogArticlePage({ params }: BlogArticlePageProps) {
   return (
     <>
       <JsonLd data={[articleJsonLd, breadcrumbJsonLd]} />
+      <TrackPageEvent
+        eventName="blog_article_view"
+        properties={{
+          blog_slug: post.slug,
+          blog_category: post.category
+        }}
+      />
       <article className="article-page">
         <header className="article-hero">
           <div className="container article-hero-grid">
@@ -137,7 +145,19 @@ export default function BlogArticlePage({ params }: BlogArticlePageProps) {
                   ))}
                 </div>
               </div>
-              <ButtonLink href="/contact" variant="secondary">Discuss a Project</ButtonLink>
+              <ButtonLink
+                href="/contact"
+                variant="secondary"
+                analyticsEvent="blog_article_click"
+                analyticsProperties={{
+                  cta_location: "article_contact_cta",
+                  link_type: "contact_cta",
+                  blog_slug: post.slug,
+                  blog_category: post.category
+                }}
+              >
+                Discuss a Project
+              </ButtonLink>
             </aside>
             <ArticleBody post={post} />
           </div>

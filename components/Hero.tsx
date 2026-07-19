@@ -17,8 +17,21 @@ export function Hero() {
             and institutions in Somalia.
           </p>
           <div className="hero-actions">
-            <ButtonLink href="/contact">Request a Free Consultation</ButtonLink>
-            <ButtonLink href="/portfolio" variant="secondary">View Our Work</ButtonLink>
+            <ButtonLink
+              href="/contact"
+              analyticsEvent="hero_primary_cta_click"
+              analyticsProperties={{ cta_location: "hero_primary" }}
+            >
+              Request a Free Consultation
+            </ButtonLink>
+            <ButtonLink
+              href="/portfolio"
+              variant="secondary"
+              analyticsEvent="hero_portfolio_click"
+              analyticsProperties={{ cta_location: "hero_secondary" }}
+            >
+              View Our Work
+            </ButtonLink>
           </div>
           <div className="trust-strip">
             <span>Services for</span>
