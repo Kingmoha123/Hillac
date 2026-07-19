@@ -98,5 +98,6 @@ portfolioProjectSchema.index({ published: 1, featured: -1, sortOrder: 1, updated
 portfolioProjectSchema.index({ archivedAt: 1 });
 
 export const PortfolioProject =
-  (mongoose.models.PortfolioProject as Model<PortfolioProjectDocument> | undefined) ||
-  mongoose.model<PortfolioProjectDocument>("PortfolioProject", portfolioProjectSchema);
+  mongoose.modelNames().includes("PortfolioProject")
+    ? mongoose.model<PortfolioProjectDocument>("PortfolioProject")
+    : mongoose.model<PortfolioProjectDocument>("PortfolioProject", portfolioProjectSchema);

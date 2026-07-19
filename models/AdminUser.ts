@@ -72,5 +72,6 @@ const adminUserSchema = new Schema<AdminUserDocument>(
 );
 
 export const AdminUser =
-  (mongoose.models.AdminUser as Model<AdminUserDocument> | undefined) ||
-  mongoose.model<AdminUserDocument>("AdminUser", adminUserSchema);
+  mongoose.modelNames().includes("AdminUser")
+    ? mongoose.model<AdminUserDocument>("AdminUser")
+    : mongoose.model<AdminUserDocument>("AdminUser", adminUserSchema);
