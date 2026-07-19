@@ -62,10 +62,14 @@ export function Footer() {
               </TrackedLink>
             </li>
           </ul>
-          <form className="newsletter">
-            <input type="email" placeholder="Email address" aria-label="Email address" />
-            <button type="submit">Join</button>
-          </form>
+          <TrackedLink
+            className="footer-contact-cta"
+            href="/contact"
+            eventName="footer_contact_click"
+            eventProperties={{ cta_location: "footer_contact_cta", link_type: "contact_cta" }}
+          >
+            Start a Conversation
+          </TrackedLink>
         </div>
       </div>
       <div className="container footer-bottom">

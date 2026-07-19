@@ -1,4 +1,4 @@
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
+export const GA_MEASUREMENT_ID = normalizeGaMeasurementId(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
 export const ANALYTICS_DEBUG = process.env.NEXT_PUBLIC_ANALYTICS_DEBUG === "true";
 export const ANALYTICS_CONSENT_KEY = "hillaac_analytics_consent";
 
@@ -122,4 +122,9 @@ function debugAnalytics(eventName: string, properties: AnalyticsEventProperties)
   }
 
   console.info("[analytics]", eventName, properties);
+}
+
+function normalizeGaMeasurementId(value: string | undefined) {
+  const trimmed = value?.trim() || "";
+  return /^G-[A-Z0-9]+$/i.test(trimmed) ? trimmed : "";
 }

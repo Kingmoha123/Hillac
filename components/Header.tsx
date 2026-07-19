@@ -40,7 +40,7 @@ export function Header() {
         </nav>
         <div className="header-actions">
           <button type="button" className="icon-button" onClick={toggleTheme} aria-label="Toggle dark mode">
-            {dark ? "☀" : "◐"}
+            {dark ? "L" : "D"}
           </button>
           <ButtonLink
             href="/contact"
@@ -59,7 +59,12 @@ export function Header() {
           >
             WhatsApp
           </a>
-          <button type="button" className="icon-button mobile-menu-button" onClick={() => setOpen((value) => !value)} aria-label="Open menu">
+          <button
+            type="button"
+            className="icon-button mobile-menu-button"
+            onClick={() => setOpen((value) => !value)}
+            aria-label="Open menu"
+          >
             <Icon name={open ? "close" : "menu"} className="icon-small" />
           </button>
         </div>
