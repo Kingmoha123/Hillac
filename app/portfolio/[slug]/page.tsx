@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
 import { ProjectVisual } from "@/components/ProjectVisual";
+import { TrackPageEvent } from "@/components/TrackPageEvent";
 import { projects } from "@/data/site";
 import { createPageMetadata } from "@/lib/seo";
 import { createBreadcrumbJsonLd } from "@/lib/structured-data";
@@ -56,6 +57,13 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
+      <TrackPageEvent
+        eventName="portfolio_case_study_view"
+        properties={{
+          project_slug: project.slug,
+          project_title: project.title
+        }}
+      />
       <section className="case-hero">
         <div className="container case-hero-grid">
           <div>
@@ -78,10 +86,34 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
             </dl>
             <div className="case-actions">
               {project.liveProjectUrl ? (
-                <ButtonLink href={project.liveProjectUrl} variant="secondary">View Live Project</ButtonLink>
+                <ButtonLink
+                  href={project.liveProjectUrl}
+                  variant="secondary"
+                  analyticsEvent="portfolio_project_click"
+                  analyticsProperties={{
+                    cta_location: "case_study_live_link",
+                    link_type: "live_project",
+                    project_slug: project.slug,
+                    project_title: project.title
+                  }}
+                >
+                  View Live Project
+                </ButtonLink>
               ) : null}
               {project.githubUrl ? (
-                <ButtonLink href={project.githubUrl} variant="secondary">View GitHub</ButtonLink>
+                <ButtonLink
+                  href={project.githubUrl}
+                  variant="secondary"
+                  analyticsEvent="portfolio_project_click"
+                  analyticsProperties={{
+                    cta_location: "case_study_github_link",
+                    link_type: "github",
+                    project_slug: project.slug,
+                    project_title: project.title
+                  }}
+                >
+                  View GitHub
+                </ButtonLink>
               ) : null}
             </div>
           </div>

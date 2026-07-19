@@ -1496,11 +1496,58 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
   gap: 10px 16px;
 }
 
-.footer-legal-links a:hover {
+.footer-legal-links a:hover,
+.footer-legal-button:hover {
   color: white;
+}
+
+.footer-legal-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.68);
+  font: inherit;
+  cursor: pointer;
+}
+
+.cookie-consent {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  width: min(680px, calc(100% - 44px));
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 20px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.cookie-consent h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-poppins), Poppins, sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0;
+}
+
+.cookie-consent p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.cookie-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .whatsapp-float {
@@ -1703,6 +1750,7 @@ textarea {
   .job-card,
   .cta-inner,
   .footer-bottom,
+  .cookie-consent,
   .newsletter {
     display: grid;
     grid-template-columns: 1fr;
@@ -1726,6 +1774,17 @@ textarea {
 
   .footer-legal-links {
     justify-content: flex-start;
+  }
+
+  .cookie-consent {
+    right: 14px;
+    bottom: 14px;
+    width: calc(100% - 28px);
+  }
+
+  .cookie-consent-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .job-card div:last-child {

@@ -141,6 +141,45 @@ Gmail may display the app password with spaces. The contact API removes spaces f
 For Vercel, add the same variables in Project Settings, Environment Variables.
 Apply them to the production environment, then redeploy the site so the API route can read the new values.
 
+## Analytics and Consent
+
+Google Analytics 4 support is optional and privacy-conscious. Analytics stays disabled unless a GA4 Measurement ID is provided and the visitor accepts analytics in the cookie banner.
+
+Add these values to `.env.local` for local testing:
+
+```text
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_ANALYTICS_DEBUG=false
+```
+
+Do not hardcode a real Measurement ID in the repository.
+
+To create a GA4 property:
+
+1. Open Google Analytics.
+2. Create or select an account for Hillaac ICT Solutions.
+3. Create a GA4 property and Web data stream for the website.
+4. Copy the Measurement ID from the web stream. It usually starts with `G-`.
+5. Put the value in `NEXT_PUBLIC_GA_MEASUREMENT_ID` inside `.env.local`.
+6. Restart the local Next.js server after changing environment variables.
+
+For Vercel, add `NEXT_PUBLIC_GA_MEASUREMENT_ID` and optional `NEXT_PUBLIC_ANALYTICS_DEBUG` in Project Settings, Environment Variables. Apply them to the production environment, then redeploy the site because Next.js reads public environment variables at build time.
+
+Consent behavior:
+
+- Analytics scripts do not load before the visitor accepts analytics.
+- Rejecting analytics stores `hillaac_analytics_consent=rejected` in localStorage and keeps analytics disabled.
+- Accepting analytics stores `hillaac_analytics_consent=accepted` in localStorage and enables GA4 page-view and conversion event tracking.
+- Visitors can update the decision later from the footer Cookie Settings link.
+- Contact form field values are never sent to analytics.
+
+To verify analytics:
+
+1. Set `NEXT_PUBLIC_ANALYTICS_DEBUG=true` only when intentionally debugging.
+2. Accept analytics in the cookie banner.
+3. Use GA4 DebugView for local debugging or Realtime reports for production checks.
+4. Click key CTAs, portfolio cards, blog cards, WhatsApp links, and submit the contact form with safe test data.
+
 ## WhatsApp Contact
 
 The floating WhatsApp button uses this number:

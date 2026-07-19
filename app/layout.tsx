@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { CookieConsentBanner } from "@/components/CookieConsentBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
@@ -70,10 +72,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
         <JsonLd data={[organizationJsonLd, websiteJsonLd, professionalServiceJsonLd]} />
+        <AnalyticsProvider />
         <Header />
         <main>{children}</main>
         <Footer />
         <WhatsAppButton />
+        <CookieConsentBanner />
       </body>
     </html>
   );

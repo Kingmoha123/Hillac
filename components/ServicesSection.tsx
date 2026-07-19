@@ -1,6 +1,7 @@
 import { services } from "@/data/site";
 import { Icon } from "./Icon";
 import { SectionHeader } from "./SectionHeader";
+import { TrackedLink } from "./TrackedLink";
 
 export function ServicesSection() {
   return (
@@ -19,7 +20,16 @@ export function ServicesSection() {
               </div>
               <h3>{service.title}</h3>
               <p>{service.summary}</p>
-              <a href="/services">Learn more</a>
+              <TrackedLink
+                href="/services"
+                eventName="service_interest_click"
+                eventProperties={{
+                  cta_location: "service_card",
+                  service_name: service.title
+                }}
+              >
+                Learn more
+              </TrackedLink>
             </article>
           ))}
         </div>

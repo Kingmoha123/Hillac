@@ -42,7 +42,15 @@ export const legalPages: LegalPage[] = [
         heading: "Email Communication",
         paragraphs: [
           "If you submit your email address, we may use it to reply to your inquiry, send project-related communication, or follow up on a request you started.",
-          "We do not use the current website for advertising cookies or analytics-based marketing. If marketing tools are added later, this policy should be updated before relying on them."
+          "We do not use the current website for advertising remarketing, heatmaps, or session recording."
+        ]
+      },
+      {
+        heading: "Google Analytics",
+        paragraphs: [
+          "When Google Analytics is configured and you accept analytics cookies, the website may collect aggregate traffic and interaction information such as pages visited, general engagement events, referral information, browser or device category, and approximate region where available from Google Analytics.",
+          "Analytics events are designed to measure website performance and conversion interest without intentionally sending contact form contents. We do not send visitor names, email addresses, phone numbers, company names, project details, or message content to Google Analytics.",
+          "You can reject analytics through the cookie banner or later update your choice using the Cookie Settings link in the footer. You can also manage or clear cookies through your browser settings."
         ]
       },
       {
@@ -150,7 +158,7 @@ export const legalPages: LegalPage[] = [
   {
     title: "Cookie Policy",
     slug: "cookie-policy",
-    description: "How this website uses browser storage and what may change if analytics are added later.",
+    description: "How this website uses browser storage, analytics consent, and Google Analytics cookies when enabled.",
     effectiveDate: "July 19, 2026",
     lastUpdated: "July 19, 2026",
     sections: [
@@ -158,27 +166,35 @@ export const legalPages: LegalPage[] = [
         heading: "Current Browser Storage Use",
         paragraphs: [
           "The current website uses browser localStorage to remember your light or dark mode preference. This helps the site keep the selected theme when you return or navigate between pages.",
-          "The theme preference is stored in your browser under a local value such as theme. It is not used for advertising, tracking, analytics, or profiling."
+          "The website also uses localStorage to remember your analytics consent choice under hillaac_analytics_consent. Possible values are accepted or rejected. This consent value does not contain personal information."
         ]
       },
       {
-        heading: "Contact Form and Cookies",
+        heading: "Google Analytics Cookies",
         paragraphs: [
-          "The contact form does not require advertising cookies or analytics cookies to submit a message.",
-          "Normal hosting and security systems may still process technical request information as part of delivering and protecting the website."
+          "When a Google Analytics Measurement ID is configured and you choose Accept analytics, Google Analytics may use cookies or similar identifiers to measure aggregate website traffic and interactions.",
+          "Analytics helps us understand which pages, services, portfolio items, articles, and calls-to-action receive interest. It is not intended to collect contact form contents."
         ]
       },
       {
-        heading: "No Analytics or Advertising Cookies Yet",
+        heading: "Contact Form and Analytics",
         paragraphs: [
-          "This website does not currently add analytics, retargeting, or advertising cookies.",
-          "If analytics, marketing pixels, or similar tools are added in a future task, this Cookie Policy should be updated and a cookie consent approach should be reviewed where appropriate."
+          "The contact form can be submitted whether analytics is accepted or rejected.",
+          "Analytics events for the contact form only measure non-sensitive states such as form start, submit attempt, success, or error. They do not include your name, email address, phone number, company name, project details, message content, or Gmail information."
         ]
       },
       {
-        heading: "Managing Local Storage",
+        heading: "No Advertising or Session Recording",
         paragraphs: [
-          "You can clear localStorage through your browser settings. If you clear it, the website may return to the default or system theme preference.",
+          "This website does not add Facebook Pixel, TikTok Pixel, advertising remarketing, heatmaps, or session recording tools.",
+          "If additional marketing or analytics tools are added later, this Cookie Policy should be reviewed and updated before relying on the new behavior."
+        ]
+      },
+      {
+        heading: "Managing Cookies and Local Storage",
+        paragraphs: [
+          "You can accept or reject analytics through the cookie banner. After making a choice, you can update it later using the Cookie Settings link in the footer.",
+          "You can also clear cookies and localStorage through your browser settings. If you clear localStorage, the website may return to the default or system theme preference and ask for analytics consent again.",
           `Questions about browser storage can be sent to ${contactEmail}.`
         ]
       }
