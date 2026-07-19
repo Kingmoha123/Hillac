@@ -7,8 +7,19 @@ Use this checklist before moving the website from launch candidate to active cli
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to the final production URL.
 - [ ] Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` after creating the GA4 web stream.
 - [ ] Keep `NEXT_PUBLIC_ANALYTICS_DEBUG=false` in production.
+- [ ] Set `MONGODB_URI` for admin authentication and future CMS content.
+- [ ] Set a strong `AUTH_SECRET` for admin session signing.
 - [ ] Set Gmail SMTP variables: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, and `CONTACT_TO_EMAIL`.
 - [ ] Confirm `.env.local` is not committed.
+
+## Admin Foundation
+
+- [ ] Create the first `SUPER_ADMIN` with `npm run seed:admin`.
+- [ ] Remove `ADMIN_SEED_PASSWORD` after the first admin is created.
+- [ ] Confirm `/admin/login` is reachable.
+- [ ] Confirm unauthenticated `/admin` visitors redirect to `/admin/login`.
+- [ ] Confirm authenticated admins can view Dashboard and update their own display name.
+- [ ] Confirm no public registration route exists.
 
 ## Contact And Email
 

@@ -2,10 +2,16 @@
 
 import { company } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
+import { usePathname } from "next/navigation";
 import { Icon } from "./Icon";
 
 export function WhatsAppButton() {
+  const pathname = usePathname();
   const message = encodeURIComponent("Asc Hillaac ICT Solutions, waxaan rabaa inaan ka hadlo website/app/system project.");
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <a

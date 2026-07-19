@@ -41,6 +41,10 @@ export function AnalyticsProvider() {
       return;
     }
 
+    if (pathname.startsWith("/admin")) {
+      return;
+    }
+
     const queryString = window.location.search.replace(/^\?/, "");
     const pagePath = queryString ? `${pathname}?${queryString}` : pathname;
     const frame = window.requestAnimationFrame(() => {
@@ -50,7 +54,7 @@ export function AnalyticsProvider() {
     return () => window.cancelAnimationFrame(frame);
   }, [consent, pathname, scriptReady]);
 
-  if (!isAnalyticsConfigured() || consent !== "accepted") {
+  if (pathname.startsWith("/admin") || !isAnalyticsConfigured() || consent !== "accepted") {
     return null;
   }
 
