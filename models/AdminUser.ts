@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from "mongoose";
+import { Model, Schema, model, models } from "mongoose";
 
 export const adminRoles = ["SUPER_ADMIN", "ADMIN", "EDITOR"] as const;
 export const adminStatuses = ["ACTIVE", "INACTIVE"] as const;
@@ -72,6 +72,5 @@ const adminUserSchema = new Schema<AdminUserDocument>(
 );
 
 export const AdminUser =
-  mongoose.modelNames().includes("AdminUser")
-    ? mongoose.model<AdminUserDocument>("AdminUser")
-    : mongoose.model<AdminUserDocument>("AdminUser", adminUserSchema);
+  (models?.AdminUser as Model<AdminUserDocument> | undefined) ||
+  model<AdminUserDocument>("AdminUser", adminUserSchema);
