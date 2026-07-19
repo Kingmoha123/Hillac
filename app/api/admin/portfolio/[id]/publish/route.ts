@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getCurrentAdminFromRequest } from "@/lib/admin/session";
 import { canManagePortfolio } from "@/lib/portfolio/permissions";
 import { serializeProject } from "@/lib/portfolio/repository";
@@ -34,9 +35,18 @@ export async function POST(request: Request, { params }: RouteContext) {
       return NextResponse.json({ message: "Project not found." }, { status: 404 });
     }
 
+    revalidatePortfolioPaths(project.slug);
+
     return NextResponse.json({ project: serializeProject(project.toObject()) });
   } catch (error) {
     console.error("Admin portfolio publish update failed:", error);
     return NextResponse.json({ message: "Unable to update publishing state." }, { status: 500 });
   }
+}
+
+function revalidatePortfolioPaths(slug: string) {
+  revalidatePath("/");
+  revalidatePath("/portfolio");
+  revalidatePath(`/portfolio/${slug}`);
+  revalidatePath("/sitemap.xml");
 }

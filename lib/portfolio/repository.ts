@@ -25,11 +25,7 @@ export async function getPublishedPortfolioProjects() {
 
   try {
     const mongoProjects = await getPublishedMongoProjects();
-    if (mongoProjects.length > 0) {
-      return mongoProjects.map(mapDocumentToPublicProject);
-    }
-
-    return shouldUseLocalFallback() ? localProjects : [];
+    return mongoProjects.map(mapDocumentToPublicProject);
   } catch (error) {
     if (shouldUseLocalFallback()) {
       console.warn("Using local portfolio fallback:", error instanceof Error ? error.message : "Unknown error");
@@ -46,7 +42,7 @@ export async function getPublishedPortfolioProjectBySlug(slug: string) {
   try {
     await connectToDatabase();
     const project = await PortfolioProject.findOne({ slug, published: true, archivedAt: null }).lean();
-    return project ? mapDocumentToPublicProject(project) : shouldUseLocalFallback() ? localProjects.find((item) => item.slug === slug) || null : null;
+    return project ? mapDocumentToPublicProject(project) : null;
   } catch (error) {
     if (shouldUseLocalFallback()) {
       console.warn("Using local portfolio fallback:", error instanceof Error ? error.message : "Unknown error");

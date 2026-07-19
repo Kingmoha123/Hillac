@@ -10,7 +10,7 @@ export const metadata = createPageMetadata({
   path: "/portfolio"
 });
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function PortfolioPage() {
   const projects = await getPublishedPortfolioProjects();
