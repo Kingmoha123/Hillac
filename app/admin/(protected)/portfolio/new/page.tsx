@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PortfolioProjectForm } from "@/components/admin/portfolio/PortfolioProjectForm";
 import { requireAdminSession } from "@/lib/admin/session";
 import { canManagePortfolio } from "@/lib/portfolio/permissions";
@@ -12,6 +13,10 @@ export default async function NewPortfolioProjectPage() {
 
   return (
     <section className="admin-page">
+      <Link className="admin-back-link" href="/admin/portfolio" aria-label="Back to portfolio projects">
+        <span aria-hidden="true">←</span>
+        Back to Portfolio
+      </Link>
       <span className="admin-eyebrow">Portfolio CMS</span>
       <h1>Add Project</h1>
       <p>Create a draft case study. Publishing can happen now only for roles with publishing access.</p>

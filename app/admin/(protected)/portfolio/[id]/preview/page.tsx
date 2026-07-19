@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
@@ -39,6 +40,12 @@ export default async function AdminPortfolioPreviewPage({ params }: PreviewPageP
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
+      <div className="container admin-preview-back">
+        <Link className="admin-back-link" href="/admin/portfolio" aria-label="Back to portfolio projects">
+          <span aria-hidden="true">←</span>
+          Back to Portfolio
+        </Link>
+      </div>
       <section className="case-hero">
         <div className="container case-hero-grid">
           <div>

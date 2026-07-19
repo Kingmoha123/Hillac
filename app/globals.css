@@ -1861,6 +1861,37 @@ textarea {
   font-weight: 900;
 }
 
+.admin-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  gap: 8px;
+  width: fit-content;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  padding: 0 14px;
+  font-weight: 900;
+}
+
+.admin-back-link:hover,
+.admin-back-link:focus-visible {
+  border-color: color-mix(in srgb, var(--blue) 42%, var(--line));
+  color: var(--blue);
+}
+
+.admin-back-link span {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.admin-preview-back {
+  padding-top: 28px;
+}
+
 .admin-card-grid,
 .admin-settings-grid {
   display: grid;
