@@ -68,14 +68,18 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
     setProjects((current) => current.map((item) => (item.id === project.id ? updatedProject : item)));
   };
 
-  const archiveProject = async (project: SerializedPortfolioProject) => {
-    if (!window.confirm(`Archive "${project.title}"? This will remove it from public listings.`)) {
+  const deleteProject = async (project: SerializedPortfolioProject) => {
+    const confirmed = window.confirm(
+      `Delete "${project.title}"?\n\nThis project will be removed from the admin list and public portfolio. This action cannot be undone from this screen.`
+    );
+
+    if (!confirmed) {
       return;
     }
 
     const response = await fetch(`/api/admin/portfolio/${project.id}`, { method: "DELETE" });
     if (!response.ok) {
-      setError("Unable to archive project.");
+      setError("Unable to delete project.");
       return;
     }
 
@@ -125,7 +129,7 @@ export function PortfolioProjectManager({ canPublish, canDelete }: PortfolioProj
                       <Link href={`/admin/portfolio/${project.id}/preview`}>Preview</Link>
                       {project.published ? <Link href={`/portfolio/${project.slug}`}>Public</Link> : null}
                       {canPublish ? <button type="button" onClick={() => togglePublished(project)}>{project.published ? "Unpublish" : "Publish"}</button> : null}
-                      {canDelete ? <button type="button" onClick={() => archiveProject(project)}>Archive</button> : null}
+                      {canDelete ? <button type="button" onClick={() => deleteProject(project)}>Delete</button> : null}
                     </div>
                   </td>
                 </tr>
