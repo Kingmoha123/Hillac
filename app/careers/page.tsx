@@ -4,7 +4,7 @@ import { jobs } from "@/data/site";
 
 export const metadata = createPageMetadata({
   title: "Careers",
-  description: "Explore career opportunities with Hillaac ICT Solutions for people who want to build premium digital brands and systems in Somalia.",
+  description: "Share interest in future collaboration areas with Hillaac ICT Solutions for digital brands, websites, systems, design, and marketing.",
   path: "/careers"
 });
 
@@ -13,11 +13,18 @@ export default function CareersPage() {
     <>
       <PageHero
         eyebrow="Careers"
-        title="Join the team building Somalia's next digital brands and systems"
-        text="We look for people with taste, discipline, curiosity, and the energy to solve real business problems."
+        title="Join the talent pool for future Hillaac projects"
+        text="Hillaac is collecting interest from people with taste, discipline, curiosity, and the energy to solve real business problems."
       />
       <section className="section">
         <div className="container jobs-list">
+          <div className="career-note">
+            <strong>Current status</strong>
+            <p>
+              These are future collaboration areas, not guaranteed open vacancies. Share your interest and Hillaac can
+              follow up when a suitable project or role becomes available.
+            </p>
+          </div>
           {jobs.map((job) => (
             <article key={job.title} className="job-card">
               <div>
@@ -27,7 +34,7 @@ export default function CareersPage() {
               <div>
                 <span>{job.location}</span>
                 <strong>{job.type}</strong>
-                <a href="/contact">Apply Now</a>
+                <a href="/contact">Share Interest</a>
               </div>
             </article>
           ))}

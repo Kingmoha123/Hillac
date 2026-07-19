@@ -3,10 +3,10 @@ export const company = {
   shortName: "Hillaac",
   slogan: "Xawaare. Hal-abuur. Xal.",
   location: "Maka Al Mukarama Street, Mogadishu, Somalia",
-  email: "info@hillaac.com",
+  email: "hillacict@gmail.com",
   phone: "+252 61 728 6400",
   whatsapp: "252617286400",
-  website: "www.hillaac.com"
+  website: "hillac-ict-solutions.vercel.app"
 };
 
 export const navigation = [
@@ -326,39 +326,39 @@ export const process = [
 
 export const testimonials = [
   {
-    quote: "Hillaac gave our organization the kind of digital presence usually seen from international companies.",
-    name: "Ayaan Hassan",
-    role: "Operations Director"
+    quote: "Discovery starts with business goals, audience, workflow, content, and launch expectations before design or development begins.",
+    name: "Clear Discovery",
+    role: "Delivery Commitment"
   },
   {
-    quote: "The process was clear, fast, and professional. Their design quality immediately changed how clients saw us.",
-    name: "Abdirahman Yusuf",
-    role: "Founder"
+    quote: "Every build is reviewed for responsiveness, accessibility, contact flow, metadata, and production readiness before launch.",
+    name: "Launch QA",
+    role: "Quality Commitment"
   },
   {
-    quote: "They understood our workflow and turned it into a clean system our team could actually use every day.",
-    name: "Muna Ali",
-    role: "Program Manager"
+    quote: "Public case studies stay clearly marked until screenshots, project scope, links, and outcomes are approved for publication.",
+    name: "Verified Portfolio",
+    role: "Trust Commitment"
   }
 ];
 
 export const jobs = [
   {
     title: "Frontend Developer",
-    location: "Mogadishu / Hybrid",
-    type: "Full-time",
-    description: "Build refined React and Next.js interfaces for websites, dashboards, and portals."
+    location: "Somalia / Remote",
+    type: "Talent Pool",
+    description: "Future collaboration area for refined React and Next.js interfaces across websites, dashboards, and portals."
   },
   {
     title: "UI/UX Designer",
-    location: "Mogadishu / Remote",
-    type: "Full-time",
-    description: "Design brand systems, web experiences, mobile apps, and clickable prototypes."
+    location: "Somalia / Remote",
+    type: "Talent Pool",
+    description: "Future collaboration area for brand systems, web experiences, mobile apps, and clickable prototypes."
   },
   {
     title: "Digital Marketing Specialist",
     location: "Remote",
-    type: "Contract",
-    description: "Plan campaigns, optimize SEO, create content calendars, and track campaign performance."
+    type: "Talent Pool",
+    description: "Future collaboration area for campaigns, SEO, content planning, and performance reporting."
   }
 ];

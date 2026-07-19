@@ -366,13 +366,13 @@ async function sendSmtpEmail(lead: Lead) {
   try {
     await waitForConnect(socket, config.secure ? "secureConnect" : "connect");
     await readSmtpResponse(socket);
-    let ehloResponse = await sendSmtpCommand(socket, "EHLO hillaac.com", [250], "EHLO");
+    let ehloResponse = await sendSmtpCommand(socket, "EHLO localhost", [250], "EHLO");
 
     if (!config.secure && process.env.SMTP_STARTTLS !== "false" && ehloResponse.includes("STARTTLS")) {
       await sendSmtpCommand(socket, "STARTTLS", [220], "STARTTLS");
       socket = tls.connect({ socket, servername: config.host });
       await waitForConnect(socket, "secureConnect");
-      ehloResponse = await sendSmtpCommand(socket, "EHLO hillaac.com", [250], "EHLO after STARTTLS");
+      ehloResponse = await sendSmtpCommand(socket, "EHLO localhost", [250], "EHLO after STARTTLS");
     }
 
     await sendSmtpCommand(socket, "AUTH LOGIN", [334], "AUTH LOGIN");

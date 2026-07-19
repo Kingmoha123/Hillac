@@ -30,6 +30,14 @@ The website is built with **Next.js**, **React**, and **TypeScript**. It include
 - CSS custom properties
 - ESLint
 
+## Current Architecture
+
+- `app/` contains App Router pages, metadata, API routes, sitemap, robots, manifest, and global styles.
+- `components/` contains reusable UI, analytics consent, tracked links, contact form, portfolio cards, blog cards, and layout sections.
+- `data/` contains structured site, portfolio, blog, and legal content.
+- `lib/` contains SEO helpers, JSON-LD helpers, and privacy-conscious analytics utilities.
+- `public/` contains static launch assets such as the default Open Graph image.
+
 ## Project Structure
 
 ```text
@@ -111,6 +119,20 @@ npm run start
 npm run lint
 ```
 
+## Full QA Commands
+
+Run these before production release:
+
+```bash
+npm install
+npm run lint
+npx tsc --noEmit
+npm run build
+npm audit --omit=dev
+```
+
+There is no separate automated test script currently defined in `package.json`.
+
 ## Contact Form Email
 
 The contact form posts to `/api/contact` and sends an email notification through Gmail SMTP from the server.
@@ -180,6 +202,12 @@ To verify analytics:
 3. Use GA4 DebugView for local debugging or Realtime reports for production checks.
 4. Click key CTAs, portfolio cards, blog cards, WhatsApp links, and submit the contact form with safe test data.
 
+Troubleshooting analytics:
+
+- If the cookie banner does not appear, confirm `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set to a valid GA4 ID such as `G-XXXXXXXXXX`.
+- If events do not show, accept analytics first and confirm the site was redeployed after adding Vercel environment variables.
+- If testing locally, restart the dev server after editing `.env.local`.
+
 ## WhatsApp Contact
 
 The floating WhatsApp button uses this number:
@@ -203,6 +231,16 @@ data/site.ts
 ## Legal Pages
 
 The Privacy Policy, Terms of Service, Cookie Policy, and Disclaimer pages are general website templates for launch readiness and transparency. Hillaac should obtain professional legal review before relying on them for regulated, high-risk, or contract-specific services.
+
+## Known Launch Placeholders
+
+- Portfolio projects are intentionally marked as placeholders until real screenshots, scope, technologies, years, links, and approved outcomes are available.
+- Careers currently collects talent-pool interest and should not be treated as confirmed open vacancies.
+- The site uses the deployed Vercel URL as a safe temporary URL until the final custom domain is verified.
+- A stricter Content Security Policy is recommended after the final analytics, font, image, and deployment domains are confirmed.
+- `npm audit --omit=dev` currently reports Next.js/PostCSS advisories where npm recommends a breaking Next.js major upgrade. Plan that upgrade with compatibility testing instead of applying `npm audit fix --force` blindly.
+
+See [docs/LAUNCH_CHECKLIST.md](docs/LAUNCH_CHECKLIST.md) for the full launch checklist.
 
 ## Main Content File
 
@@ -267,6 +305,13 @@ Basic steps:
 6. Deploy.
 
 Use the deployed Vercel URL until a custom domain is verified. Replace `NEXT_PUBLIC_SITE_URL` after connecting the final domain.
+
+## Troubleshooting Contact Email
+
+- Confirm Gmail 2-Step Verification is enabled.
+- Use a Gmail App Password, not the normal Gmail password.
+- Confirm `SMTP_PASS` is configured locally or in Vercel and redeploy after changing Vercel variables.
+- If the form shows an error, check server logs for SMTP configuration or authentication errors. The client intentionally receives only safe generic errors.
 
 ## Company
 
