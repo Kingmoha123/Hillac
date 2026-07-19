@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, sitemapEntries } from "@/lib/seo";
+import { getPublishedPortfolioSitemapEntries } from "@/lib/portfolio/repository";
 
 const legalPaths = new Set([
   "/privacy-policy",
@@ -8,12 +9,22 @@ const legalPaths = new Set([
   "/disclaimer"
 ]);
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const portfolioEntries = await getPublishedPortfolioSitemapEntries();
+  const paths = new Set<string>();
 
-  return sitemapEntries.map((entry) => ({
+  return [...sitemapEntries.filter((entry) => !entry.path.startsWith("/portfolio/")), ...portfolioEntries]
+    .filter((entry) => {
+      if (paths.has(entry.path)) {
+        return false;
+      }
+      paths.add(entry.path);
+      return true;
+    })
+    .map((entry) => ({
     url: absoluteUrl(entry.path),
-    lastModified: now,
+    lastModified: "updatedAt" in entry && entry.updatedAt instanceof Date ? entry.updatedAt : now,
     changeFrequency: legalPaths.has(entry.path)
       ? "yearly"
       : entry.path.startsWith("/portfolio/") || entry.path.startsWith("/blog/")

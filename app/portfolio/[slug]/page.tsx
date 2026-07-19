@@ -5,8 +5,12 @@ import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { TrackPageEvent } from "@/components/TrackPageEvent";
-import { projects } from "@/data/site";
-import { createPageMetadata } from "@/lib/seo";
+import { absoluteUrl, createPageMetadata, defaultOgImage } from "@/lib/seo";
+import {
+  getPublishedPortfolioProjectBySlug,
+  getPublishedPortfolioProjectMetadata,
+  getPublishedPortfolioProjects
+} from "@/lib/portfolio/repository";
 import { createBreadcrumbJsonLd } from "@/lib/structured-data";
 
 type CaseStudyPageProps = {
@@ -15,16 +19,15 @@ type CaseStudyPageProps = {
   };
 };
 
-function getProject(slug: string) {
-  return projects.find((project) => project.slug === slug);
-}
+export const revalidate = 60;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getPublishedPortfolioProjects();
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export function generateMetadata({ params }: CaseStudyPageProps): Metadata {
-  const project = getProject(params.slug);
+export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
+  const project = await getPublishedPortfolioProjectMetadata(params.slug);
 
   if (!project) {
     return {
@@ -32,17 +35,33 @@ export function generateMetadata({ params }: CaseStudyPageProps): Metadata {
     };
   }
 
-  return createPageMetadata({
-    title: `${project.title} Case Study`,
-    description: project.shortDescription,
-    path: `/portfolio/${project.slug}`,
+  const metadata = createPageMetadata({
+    title: project.title,
+    description: project.description,
+    path: `/portfolio/${params.slug}`,
     keywords: [project.title, project.category, ...project.services],
     type: "article"
   });
+
+  if (!project.image) {
+    return metadata;
+  }
+
+  return {
+    ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      images: [{ url: project.image, width: 1200, height: 630, alt: project.title }]
+    },
+    twitter: {
+      ...metadata.twitter,
+      images: [project.image || defaultOgImage.url]
+    }
+  };
 }
 
-export default function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const project = getProject(params.slug);
+export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
+  const project = await getPublishedPortfolioProjectBySlug(params.slug);
 
   if (!project) {
     notFound();
@@ -53,10 +72,18 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
     { name: "Portfolio", path: "/portfolio" },
     { name: project.title, path: `/portfolio/${project.slug}` }
   ]);
+  const caseStudyJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.shortDescription,
+    url: absoluteUrl(`/portfolio/${project.slug}`),
+    image: project.coverImage.src ? absoluteUrl(project.coverImage.src) : absoluteUrl("/og-image.svg")
+  };
 
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={[breadcrumbJsonLd, caseStudyJsonLd]} />
       <TrackPageEvent
         eventName="portfolio_case_study_view"
         properties={{
