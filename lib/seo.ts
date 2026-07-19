@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { publishedBlogPosts } from "@/data/blog";
+import { legalPages } from "@/data/legal";
 import { company, projects } from "@/data/site";
 
 const fallbackSiteUrl = "https://hillac-ict-solutions.vercel.app";
@@ -86,7 +87,13 @@ export const sitePages = [
     title: "Contact",
     description: "Contact Hillaac ICT Solutions to discuss a website, mobile app, business system, brand, cloud project, or digital product.",
     priority: 0.9
-  }
+  },
+  ...legalPages.map((page) => ({
+    path: `/${page.slug}`,
+    title: page.title,
+    description: page.description,
+    priority: 0.3
+  }))
 ] as const;
 
 export function absoluteUrl(path = "/") {
