@@ -161,6 +161,10 @@ To change it, edit:
 data/site.ts
 ```
 
+## Legal Pages
+
+The Privacy Policy, Terms of Service, Cookie Policy, and Disclaimer pages are general website templates for launch readiness and transparency. Hillaac should obtain professional legal review before relying on them for regulated, high-risk, or contract-specific services.
+
 ## Main Content File
 
 Most company information, services, portfolio items, blog posts, technologies, jobs, phone number, and email are stored in:

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { legalPages } from "@/data/legal";
 import { company, navigation, services } from "@/data/site";
 import { Logo } from "./Logo";
 
@@ -48,8 +49,14 @@ export function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} {company.name}. All rights reserved.</span>
-        <span>{company.website}</span>
+        <span>&copy; {new Date().getFullYear()} {company.name}. All rights reserved.</span>
+        <nav className="footer-legal-links" aria-label="Legal links">
+          {legalPages.map((page) => (
+            <Link key={page.slug} href={`/${page.slug}`}>
+              {page.title}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );
