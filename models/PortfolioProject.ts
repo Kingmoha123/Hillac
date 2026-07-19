@@ -1,4 +1,4 @@
-import { Model, Schema, model, models } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 
 export const projectCategories = ["WEBSITE", "MOBILE_APP", "BUSINESS_SYSTEM", "BRANDING", "UI_UX", "OTHER"] as const;
 export const clientTypes = ["CLIENT", "INTERNAL", "CONFIDENTIAL"] as const;
@@ -98,5 +98,5 @@ portfolioProjectSchema.index({ published: 1, featured: -1, sortOrder: 1, updated
 portfolioProjectSchema.index({ archivedAt: 1 });
 
 export const PortfolioProject =
-  (models.PortfolioProject as Model<PortfolioProjectDocument> | undefined) ||
-  model<PortfolioProjectDocument>("PortfolioProject", portfolioProjectSchema);
+  (mongoose.models.PortfolioProject as Model<PortfolioProjectDocument> | undefined) ||
+  mongoose.model<PortfolioProjectDocument>("PortfolioProject", portfolioProjectSchema);
