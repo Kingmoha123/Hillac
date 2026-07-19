@@ -20,14 +20,23 @@ type CaseStudyPageProps = {
 };
 
 export const revalidate = 60;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const projects = await getPublishedPortfolioProjects();
-  return projects.map((project) => ({ slug: project.slug }));
+  try {
+    const projects = await getPublishedPortfolioProjects();
+    return projects.map((project) => ({ slug: project.slug }));
+  } catch (error) {
+    console.warn("Skipping portfolio static params during build:", error instanceof Error ? error.message : "Unknown error");
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
-  const project = await getPublishedPortfolioProjectMetadata(params.slug);
+  const project = await getPublishedPortfolioProjectMetadata(params.slug).catch((error) => {
+    console.warn("Unable to load portfolio metadata:", error instanceof Error ? error.message : "Unknown error");
+    return null;
+  });
 
   if (!project) {
     return {
