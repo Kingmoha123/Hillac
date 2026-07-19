@@ -258,6 +258,63 @@ Admin security notes:
 - Sessions use HTTP-only cookies with `sameSite=lax`; production cookies are marked secure.
 - Only Dashboard and Settings are functional in this foundation. Other modules are protected placeholders for future CMS work.
 
+## Portfolio CMS
+
+The portfolio CMS extends the admin foundation and keeps the public portfolio design intact. Published MongoDB projects power `/portfolio` and `/portfolio/[slug]`; local file-based portfolio entries remain as a development fallback when MongoDB is not configured.
+
+Project model fields include title, slug, category, short description, overview, client name/type, services, technologies, challenges, solution, key features, results, cover image, gallery images, live URL, GitHub URL, status, completion year, featured, published, sort order, SEO title/description, creator/updater IDs, and timestamps.
+
+Admin portfolio routes:
+
+```text
+/admin/portfolio
+/admin/portfolio/new
+/admin/portfolio/[id]/edit
+/admin/portfolio/[id]/preview
+```
+
+Portfolio permissions:
+
+- `SUPER_ADMIN`: create, read, update, publish, feature, and archive projects.
+- `ADMIN`: create, read, update, publish, feature, and archive projects.
+- `EDITOR`: create and update projects only.
+
+Cloudinary image upload variables:
+
+```text
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
+Image upload limits:
+
+- JPEG, PNG, WebP, and AVIF only.
+- Maximum file size is 4 MB.
+- Uploads are signed server-side; the API secret is never exposed to the browser.
+
+Portfolio migration:
+
+```bash
+npm run seed:portfolio
+```
+
+The seed command migrates existing local portfolio entries into MongoDB, prevents duplicates by slug, creates them as unpublished drafts, and does not overwrite existing admin-edited records.
+
+Publishing workflow:
+
+1. Create or edit a project in `/admin/portfolio`.
+2. Use draft preview to review unpublished content at `/admin/portfolio/[id]/preview`.
+3. Publish only after project details, images, and public claims are approved.
+4. Published projects appear publicly and in the sitemap.
+
+Troubleshooting portfolio CMS:
+
+- If public portfolio pages show local placeholder projects, confirm `MONGODB_URI` is configured.
+- If uploads return “not configured,” confirm all Cloudinary variables are set and Vercel was redeployed.
+- If a slug conflict appears, choose a unique slug before saving.
+- If database access fails in production with `MONGODB_URI` configured, check Vercel logs and MongoDB network/user permissions.
+
 ## WhatsApp Contact
 
 The floating WhatsApp button uses this number:

@@ -1,10 +1,19 @@
-import { AdminComingSoon } from "@/components/admin/AdminComingSoon";
+import type { Metadata } from "next";
+import { PortfolioProjectManager } from "@/components/admin/portfolio/PortfolioProjectManager";
+import { requireAdminSession } from "@/lib/admin/session";
+import { canManagePortfolio } from "@/lib/portfolio/permissions";
 
-export default function AdminPortfolioPage() {
+export const metadata: Metadata = {
+  title: "Portfolio Management | Hillaac Admin"
+};
+
+export default async function AdminPortfolioPage() {
+  const admin = await requireAdminSession();
+
   return (
-    <AdminComingSoon
-      title="Portfolio Management"
-      description="Future tools for creating, editing, and publishing portfolio case studies will live here."
+    <PortfolioProjectManager
+      canPublish={canManagePortfolio(admin.role, "publish")}
+      canDelete={canManagePortfolio(admin.role, "delete")}
     />
   );
 }

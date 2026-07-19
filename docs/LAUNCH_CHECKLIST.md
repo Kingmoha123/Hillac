@@ -9,6 +9,7 @@ Use this checklist before moving the website from launch candidate to active cli
 - [ ] Keep `NEXT_PUBLIC_ANALYTICS_DEBUG=false` in production.
 - [ ] Set `MONGODB_URI` for admin authentication and future CMS content.
 - [ ] Set a strong `AUTH_SECRET` for admin session signing.
+- [ ] Set Cloudinary variables for portfolio image uploads: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`.
 - [ ] Set Gmail SMTP variables: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, and `CONTACT_TO_EMAIL`.
 - [ ] Confirm `.env.local` is not committed.
 
@@ -19,6 +20,8 @@ Use this checklist before moving the website from launch candidate to active cli
 - [ ] Confirm `/admin/login` is reachable.
 - [ ] Confirm unauthenticated `/admin` visitors redirect to `/admin/login`.
 - [ ] Confirm authenticated admins can view Dashboard and update their own display name.
+- [ ] Seed local portfolio entries with `npm run seed:portfolio` after MongoDB is configured.
+- [ ] Verify portfolio create/edit/publish/preview/archive flows.
 - [ ] Confirm no public registration route exists.
 
 ## Contact And Email

@@ -1,9 +1,10 @@
-import { projects } from "@/data/site";
 import { ButtonLink } from "./ButtonLink";
 import { ProjectCard } from "./ProjectCard";
 import { SectionHeader } from "./SectionHeader";
+import { getPublishedPortfolioProjects } from "@/lib/portfolio/repository";
 
-export function PortfolioSection() {
+export async function PortfolioSection() {
+  const projects = await getPublishedPortfolioProjects();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
 
   return (

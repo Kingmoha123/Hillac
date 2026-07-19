@@ -1,7 +1,7 @@
 import { CtaSection } from "@/components/CtaSection";
 import { PageHero } from "@/components/PageHero";
 import { PortfolioFilter } from "@/components/PortfolioFilter";
-import { projects } from "@/data/site";
+import { getPublishedPortfolioProjects } from "@/lib/portfolio/repository";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -10,7 +10,11 @@ export const metadata = createPageMetadata({
   path: "/portfolio"
 });
 
-export default function PortfolioPage() {
+export const revalidate = 60;
+
+export default async function PortfolioPage() {
+  const projects = await getPublishedPortfolioProjects();
+
   return (
     <>
       <PageHero
