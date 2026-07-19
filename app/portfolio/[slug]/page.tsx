@@ -5,12 +5,8 @@ import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { TrackPageEvent } from "@/components/TrackPageEvent";
-import { absoluteUrl, createPageMetadata, defaultOgImage } from "@/lib/seo";
-import {
-  getPublishedPortfolioProjectBySlug,
-  getPublishedPortfolioProjectMetadata,
-  getPublishedPortfolioProjects
-} from "@/lib/portfolio/repository";
+import { absoluteUrl, createPageMetadata } from "@/lib/seo";
+import { getPublishedPortfolioProjectBySlug } from "@/lib/portfolio/repository";
 import { createBreadcrumbJsonLd } from "@/lib/structured-data";
 
 type CaseStudyPageProps = {
@@ -19,45 +15,19 @@ type CaseStudyPageProps = {
   };
 };
 
-export const revalidate = 60;
-
-export async function generateStaticParams() {
-  const projects = await getPublishedPortfolioProjects();
-  return projects.map((project) => ({ slug: project.slug }));
-}
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
-  const project = await getPublishedPortfolioProjectMetadata(params.slug);
+  const title = `${formatSlugTitle(params.slug)} Case Study`;
 
-  if (!project) {
-    return {
-      title: "Case Study Not Found | Hillaac ICT Solutions"
-    };
-  }
-
-  const metadata = createPageMetadata({
-    title: project.title,
-    description: project.description,
+  return createPageMetadata({
+    title,
+    description: "Explore a Hillaac ICT Solutions portfolio case study, including project overview, services, technologies, and outcomes.",
     path: `/portfolio/${params.slug}`,
-    keywords: [project.title, project.category, ...project.services],
+    keywords: [title, "Hillaac ICT Solutions portfolio", "Somalia digital solutions", "case study"],
     type: "article"
   });
-
-  if (!project.image) {
-    return metadata;
-  }
-
-  return {
-    ...metadata,
-    openGraph: {
-      ...metadata.openGraph,
-      images: [{ url: project.image, width: 1200, height: 630, alt: project.title }]
-    },
-    twitter: {
-      ...metadata.twitter,
-      images: [project.image || defaultOgImage.url]
-    }
-  };
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
@@ -224,4 +194,12 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       <CtaSection />
     </>
   );
+}
+
+function formatSlugTitle(slug: string) {
+  return slug
+    .split("-")
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
