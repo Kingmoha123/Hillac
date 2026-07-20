@@ -1,9 +1,9 @@
-import type { BlogPost } from "@/data/blog";
+import type { PublicBlogPost } from "@/lib/blog/types";
 import { BlogVisual } from "./BlogVisual";
 import { TrackedLink } from "./TrackedLink";
 
 type BlogCardProps = {
-  post: BlogPost;
+  post: PublicBlogPost;
   featured?: boolean;
   priority?: boolean;
 };

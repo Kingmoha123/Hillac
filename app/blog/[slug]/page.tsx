@@ -8,8 +8,8 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { CtaSection } from "@/components/CtaSection";
 import { JsonLd } from "@/components/JsonLd";
 import { TrackPageEvent } from "@/components/TrackPageEvent";
-import { publishedBlogPosts } from "@/data/blog";
 import { company } from "@/data/site";
+import { getPublishedBlogPostBySlug, getRelatedPublishedBlogPosts } from "@/lib/blog/repository";
 import { absoluteUrl, createPageMetadata, defaultOgImage } from "@/lib/seo";
 import { createArticleJsonLd, createBreadcrumbJsonLd } from "@/lib/structured-data";
 
@@ -19,29 +19,10 @@ type BlogArticlePageProps = {
   };
 };
 
-function getPost(slug: string) {
-  return publishedBlogPosts.find((post) => post.slug === slug);
-}
+export const dynamic = "force-dynamic";
 
-function getRelatedPosts(slug: string) {
-  const post = getPost(slug);
-
-  if (!post) {
-    return [];
-  }
-
-  return publishedBlogPosts
-    .filter((candidate) => candidate.slug !== slug)
-    .sort((left, right) => Number(right.category === post.category) - Number(left.category === post.category))
-    .slice(0, 2);
-}
-
-export function generateStaticParams() {
-  return publishedBlogPosts.map((post) => ({ slug: post.slug }));
-}
-
-export function generateMetadata({ params }: BlogArticlePageProps): Metadata {
-  const post = getPost(params.slug);
+export async function generateMetadata({ params }: BlogArticlePageProps): Promise<Metadata> {
+  const post = await getPublishedBlogPostBySlug(params.slug).catch(() => null);
 
   if (!post) {
     return {
@@ -78,14 +59,14 @@ export function generateMetadata({ params }: BlogArticlePageProps): Metadata {
   };
 }
 
-export default function BlogArticlePage({ params }: BlogArticlePageProps) {
-  const post = getPost(params.slug);
+export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
+  const post = await getPublishedBlogPostBySlug(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(post.slug);
+  const relatedPosts = await getRelatedPublishedBlogPosts(post, 2);
   const articleUrl = absoluteUrl(`/blog/${post.slug}`);
   const articleJsonLd = createArticleJsonLd({
     title: post.title,

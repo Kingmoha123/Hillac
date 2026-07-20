@@ -9,7 +9,9 @@
     "lint": "next lint",
     "seed:admin": "node scripts/seed-admin.mjs",
     "seed:portfolio": "tsx scripts/seed-portfolio.ts",
-    "test:portfolio": "tsx scripts/test-portfolio.ts"
+    "seed:blog": "tsx scripts/seed-blog.ts",
+    "test:portfolio": "tsx scripts/test-portfolio.ts",
+    "test:blog": "tsx scripts/test-blog.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

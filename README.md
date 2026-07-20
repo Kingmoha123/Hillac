@@ -256,7 +256,7 @@ Admin security notes:
 - Login errors are generic and do not reveal whether an email exists.
 - Login attempts are rate-limited in memory.
 - Sessions use HTTP-only cookies with `sameSite=lax`; production cookies are marked secure.
-- Only Dashboard and Settings are functional in this foundation. Other modules are protected placeholders for future CMS work.
+- Dashboard, Settings, Portfolio CMS, and Blog CMS are protected admin modules. Future CMS modules should reuse the same `AUTH_SECRET`, MongoDB session, and role-based permission patterns.
 
 ## Portfolio CMS
 
@@ -314,6 +314,52 @@ Troubleshooting portfolio CMS:
 - If uploads return “not configured,” confirm all Cloudinary variables are set and Vercel was redeployed.
 - If a slug conflict appears, choose a unique slug before saving.
 - If database access fails in production with `MONGODB_URI` configured, check Vercel logs and MongoDB network/user permissions.
+
+## Blog CMS
+
+The blog CMS extends the admin foundation and replaces static public article cards with MongoDB-backed published articles. Public routes only show records where the article is published, has `PUBLISHED` status, and has not been archived. Local file-based articles remain as a development fallback when MongoDB is not configured.
+
+Blog model fields include title, slug, excerpt, category, tags, author name/role, reading time, introduction, reusable article sections, conclusion, cover image, status, featured state, published state, published date, SEO title/description, creator/updater IDs, and timestamps.
+
+Admin blog routes:
+
+```text
+/admin/blog
+/admin/blog/new
+/admin/blog/[id]/edit
+/admin/blog/[id]/preview
+```
+
+Blog permissions:
+
+- `SUPER_ADMIN`: create, read, update, publish, feature, upload images, and archive articles.
+- `ADMIN`: create, read, update, publish, feature, upload images, and archive articles.
+- `EDITOR`: create, read, update, submit drafts, and upload images only.
+
+Blog image uploads use the same Cloudinary variables as the portfolio CMS:
+
+```text
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
+Blog migration:
+
+```bash
+npm run seed:blog
+```
+
+The seed command migrates the existing local blog articles into MongoDB as unpublished drafts, prevents duplicates by slug, and does not overwrite existing admin-edited records.
+
+Publishing workflow:
+
+1. Create or edit an article in `/admin/blog`.
+2. Use the protected preview at `/admin/blog/[id]/preview`.
+3. Publish only after the content, image alt text, SEO title, and SEO description are reviewed.
+4. Published articles appear on `/blog`, `/blog/[slug]`, and the sitemap.
+
+Use `AUTH_SECRET` for admin sessions and keep the same variable name across local and Vercel environments.
 
 ## WhatsApp Contact
 

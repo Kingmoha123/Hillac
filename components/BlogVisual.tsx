@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { BlogImage } from "@/data/blog";
+import type { BlogImage } from "@/lib/blog/types";
 
 type BlogVisualProps = {
   image: BlogImage;
