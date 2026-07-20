@@ -1,7 +1,7 @@
-import type { BlogPost } from "@/data/blog";
+import type { PublicBlogPost } from "@/lib/blog/types";
 
 type ArticleBodyProps = {
-  post: BlogPost;
+  post: PublicBlogPost;
 };
 
 export function ArticleBody({ post }: ArticleBodyProps) {
@@ -16,6 +16,13 @@ export function ArticleBody({ post }: ArticleBodyProps) {
           {section.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
+          {section.bullets && section.bullets.length > 0 ? (
+            <ul>
+              {section.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          ) : null}
         </section>
       ))}
       <section aria-labelledby={`${post.slug}-conclusion`}>

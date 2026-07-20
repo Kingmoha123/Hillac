@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { publishedBlogPosts } from "@/data/blog";
 import { legalPages } from "@/data/legal";
 import { company, projects } from "@/data/site";
 
@@ -140,12 +139,6 @@ export function createPageMetadata({
 
 export const sitemapEntries = [
   ...sitePages,
-  ...publishedBlogPosts.map((post) => ({
-    path: `/blog/${post.slug}`,
-    title: post.title,
-    description: post.excerpt,
-    priority: post.featured ? 0.8 : 0.7
-  })),
   ...projects.map((project) => ({
     path: `/portfolio/${project.slug}`,
     title: `${project.title} Case Study`,

@@ -1,10 +1,18 @@
-import { AdminComingSoon } from "@/components/admin/AdminComingSoon";
+import { BlogPostManager } from "@/components/admin/blog/BlogPostManager";
+import { requireAdminSession } from "@/lib/admin/session";
+import { canManageBlog } from "@/lib/blog/permissions";
 
-export default function AdminBlogPage() {
+export const metadata = {
+  title: "Blog Management | Hillaac Admin"
+};
+
+export default async function AdminBlogPage() {
+  const admin = await requireAdminSession();
+
   return (
-    <AdminComingSoon
-      title="Blog Management"
-      description="Future tools for drafting, reviewing, and publishing blog articles will live here."
+    <BlogPostManager
+      canPublish={canManageBlog(admin.role, "publish")}
+      canDelete={canManageBlog(admin.role, "delete")}
     />
   );
 }

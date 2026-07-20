@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, sitemapEntries } from "@/lib/seo";
 import { getPublishedPortfolioSitemapEntries } from "@/lib/portfolio/repository";
+import { getPublishedBlogSitemapEntries } from "@/lib/blog/repository";
 
 const legalPaths = new Set([
   "/privacy-policy",
@@ -15,9 +16,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.warn("Skipping portfolio sitemap entries:", error instanceof Error ? error.message : "Unknown error");
     return [];
   });
+  const blogEntries = await getPublishedBlogSitemapEntries().catch((error) => {
+    console.warn("Skipping blog sitemap entries:", error instanceof Error ? error.message : "Unknown error");
+    return [];
+  });
   const paths = new Set<string>();
 
-  return [...sitemapEntries.filter((entry) => !entry.path.startsWith("/portfolio/")), ...portfolioEntries]
+  return [
+    ...sitemapEntries.filter((entry) => !entry.path.startsWith("/portfolio/") && !entry.path.startsWith("/blog/")),
+    ...portfolioEntries,
+    ...blogEntries
+  ]
     .filter((entry) => {
       if (paths.has(entry.path)) {
         return false;
